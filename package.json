@@ -1,0 +1,22 @@
+{
+  "name": "gmtk-2020",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.4.3",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6"
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "dependencies": {
+    "ecsy": "^0.3.1",
+    "three": "^0.118.3"
+  }
+}
