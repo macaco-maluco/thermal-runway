@@ -1,6 +1,8 @@
 import * as THREE from 'three'
-import { System } from 'ecsy'
+import { System, Not } from 'ecsy'
 import PositionComponent from '../components/PositionComponent'
+import ModelComponent from '../components/ModelComponent'
+import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -31,20 +33,26 @@ export default class RenderingSystem extends System {
 
     createLights().forEach((light) => scene.add(light))
 
-    const geometry = new THREE.BoxGeometry()
-    var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-    var cube = new THREE.Mesh(geometry, material)
-    scene.add(cube)
-
     this.scene = scene
     this.renderer = renderer
     this.camera = camera
   }
 
   execute(delta, time) {
-    this.queries.position.results.forEach((entity) => {
-      let pos = entity.getComponent(PositionComponent)
-      console.log(`Entity with ID: ${entity.id} has component Position={x: ${pos.x}, y: ${pos.y}`)
+    this.queries.uninitialised.results.forEach((entity) => {
+      const model = entity.getComponent(ModelComponent)
+      const geometry = new THREE.BoxGeometry()
+      const material = new THREE.MeshBasicMaterial({ color: model.color })
+      const cube = new THREE.Mesh(geometry, material)
+      entity.addComponent(ThreeMeshStateComponent, { mesh: cube })
+      this.scene.add(cube)
+    })
+
+    this.queries.initialised.results.forEach((entity) => {
+      const { mesh } = entity.getComponent(ThreeMeshStateComponent)
+      const position = entity.getComponent(PositionComponent)
+      mesh.position.x = position.x
+      mesh.position.y = position.y
     })
 
     this.renderer.render(this.scene, this.camera)
@@ -52,8 +60,12 @@ export default class RenderingSystem extends System {
 }
 
 RenderingSystem.queries = {
-  position: {
-    components: [PositionComponent],
+  uninitialised: {
+    components: [ModelComponent, Not(ThreeMeshStateComponent)],
+  },
+
+  initialised: {
+    components: [PositionComponent, ThreeMeshStateComponent],
   },
 }
 
