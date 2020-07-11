@@ -17,7 +17,7 @@ export default class GameOverSystem extends System {
     })
 
     if (reset) {
-      for (let i = this.queries.platforms.results.length - 1; i > 0; i--) {
+      for (let i = this.queries.platforms.results.length - 1; i >= 0; i--) {
         this.queries.platforms.results[i].remove()
       }
     }
