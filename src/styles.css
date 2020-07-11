@@ -4,3 +4,19 @@ html {
   overflow: hidden;
   padding: 0;
 }
+
+#canvas,
+#ui {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#ui {
+  font-family: monospace;
+  font-size: 10vh;
+  color: white;
+  padding: 1vh 4vh;
+}

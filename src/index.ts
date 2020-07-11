@@ -18,6 +18,7 @@ import PlayerTagComponent from './tags/PlayerTagComponent'
 import PlayerViewSystem from './systems/PlayerViewSystem'
 import PlayerViewTagComponent from './tags/PlayerViewTagComponent'
 import GameOverSystem from './systems/GameOverSystem'
+import UISystem from './systems/UISystem'
 
 const world = new World()
 
@@ -41,6 +42,7 @@ world.registerSystem(PhysicsSystem)
 world.registerSystem(PlayerViewSystem)
 world.registerSystem(RenderingSystem)
 world.registerSystem(GameOverSystem)
+world.registerSystem(UISystem)
 
 // Player physics body
 world
