@@ -12,6 +12,7 @@ export default class RenderingSystem extends System {
   scene: THREE.Scene
   camera: THREE.PerspectiveCamera
   renderer: THREE.WebGLRenderer
+  shadowLight: THREE.DirectionalLight
 
   character: THREE.Group
 
@@ -42,7 +43,14 @@ export default class RenderingSystem extends System {
     camera.position.z = 7
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-    createLights().forEach((light) => scene.add(light))
+    const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
+    shadowLight.castShadow = true
+    shadowLight.position.set(0, 50, 0)
+    scene.add(shadowLight)
+    scene.add(shadowLight.target)
+
+    const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
+    scene.add(ambientLight)
 
     const loader = new FBXLoader()
     loader.load('character.fbx', (object) => {
@@ -64,6 +72,7 @@ export default class RenderingSystem extends System {
     this.scene = scene
     this.renderer = renderer
     this.camera = camera
+    this.shadowLight = shadowLight
   }
 
   execute(delta, time) {
@@ -101,7 +110,18 @@ export default class RenderingSystem extends System {
 
     this.queries.cameraTracker.results.forEach((entity) => {
       const position = entity.getComponent(PositionComponent)
-      this.camera.lookAt(position.x, position.y, position.z)
+      this.camera.position.x = 0
+      this.camera.position.y = position.y + 6
+      this.camera.position.z = position.z + 6
+      this.camera.lookAt(0, position.y, position.z)
+
+      this.shadowLight.position.x = position.x
+      this.shadowLight.position.y = position.y + 10
+      this.shadowLight.position.z = position.z
+
+      this.shadowLight.target.position.x = position.x
+      this.shadowLight.target.position.y = position.y
+      this.shadowLight.target.position.z = position.z
     })
 
     this.renderer.render(this.scene, this.camera)
@@ -136,16 +156,4 @@ RenderingSystem.queries = {
   cameraTracker: {
     components: [PlayerTagComponent, PositionComponent],
   },
-}
-
-function createLights() {
-  // const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9)
-
-  const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
-  shadowLight.castShadow = true
-  shadowLight.position.set(0, 50, 0)
-
-  const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
-
-  return [shadowLight, ambientLight]
 }

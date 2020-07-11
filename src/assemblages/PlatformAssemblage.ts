@@ -23,6 +23,6 @@ export const createPlatform = (world: World, x: number, z: number) => {
     .createEntity()
     .addComponent(PositionComponent, { x, z, y: stickHeight })
     .addComponent(ModelComponent, { type: 'box', color: 'purple' })
-    .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformWidth })
+    .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformWidth * 3 })
     .addComponent(RigidBodyComponent, { mass: 5, type: 'box' })
 }
