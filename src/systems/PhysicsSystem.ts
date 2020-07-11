@@ -26,7 +26,7 @@ export class PhysicsSystem extends System {
         collisionConfiguration,
       )
 
-      physicsWorld.setGravity(new Ammo.btVector3(0, -10, 0))
+      physicsWorld.setGravity(new Ammo.btVector3(0, -20, 0))
 
       this.physicsWorld = physicsWorld
     })

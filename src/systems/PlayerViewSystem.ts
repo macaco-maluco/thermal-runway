@@ -10,7 +10,8 @@ import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateCom
 export default class PlayerViewSystem extends System {
   playerPosition: PositionComponent
   playerScale: ScaleComponent
-  playerDirection: number = 0
+  playerDirection = 0
+  playerViewScale = 2
 
   execute() {
     // When a new player component is added,
@@ -20,7 +21,7 @@ export default class PlayerViewSystem extends System {
         .createEntity()
         .addComponent(PlayerViewTagComponent)
         .addComponent(PositionComponent)
-        .addComponent(ScaleComponent)
+        .addComponent(ScaleComponent, { x: this.playerViewScale, y: this.playerViewScale, z: this.playerViewScale })
         .addComponent(ModelComponent, { type: 'character' })
     })
 

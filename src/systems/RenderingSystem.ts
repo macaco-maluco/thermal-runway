@@ -53,17 +53,18 @@ export default class RenderingSystem extends System {
     scene.add(ambientLight)
 
     const loader = new FBXLoader()
-    loader.load('character.fbx', (object) => {
-      object.scale.x = 0.005
-      object.scale.y = 0.005
-      object.scale.z = 0.005
 
-      object.traverse((o) => {
+    loader.load('character.fbx', (characterObject) => {
+      characterObject.scale.x = 0.003
+      characterObject.scale.y = 0.003
+      characterObject.scale.z = 0.003
+
+      characterObject.traverse((o) => {
         o.castShadow = true
       })
 
       const group = new THREE.Group()
-      group.add(object)
+      group.add(characterObject)
 
       this.character = group
     })
@@ -84,8 +85,6 @@ export default class RenderingSystem extends System {
     this.queries.uninitialised.results.forEach((entity) => {
       const model = entity.getComponent(ModelComponent)
       const scale = entity.getComponent(ScaleComponent)
-
-      console.log('this.character', this.character)
 
       const mesh =
         model.type === 'sphere'

@@ -19,9 +19,8 @@ export class PlayerMovementSystem extends System {
 
       const velocity = entity.getMutableComponent(VelocityComponent)
       const position = entity.getMutableComponent(PositionComponent)
-      const rigidBody = entity.getComponent(AmmoRigidBodyStateComponent)
-      const movementSpeed = 0.1 // could be its own component (like player attributes)
-      const jumpPower = 1
+      const movementSpeed = 0.15 // could be its own component (like player attributes)
+      const jumpPower = 2
 
       velocity.x = left ? -movementSpeed : right ? movementSpeed : 0
       velocity.z = up ? -movementSpeed : down ? movementSpeed : 0
@@ -32,13 +31,7 @@ export class PlayerMovementSystem extends System {
 
 PlayerMovementSystem.queries = {
   players: {
-    components: [
-      KeyboardControllerComponent,
-      GamepadControllerComponent,
-      PositionComponent,
-      AmmoRigidBodyStateComponent,
-      VelocityComponent,
-    ],
+    components: [KeyboardControllerComponent, GamepadControllerComponent, PositionComponent, VelocityComponent],
   },
 }
 
