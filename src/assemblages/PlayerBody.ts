@@ -18,7 +18,7 @@ export const createPlayerBody = (world: World) => {
     .addComponent(KeyboardControllerComponent)
     .addComponent(GamepadControllerComponent)
     .addComponent(VelocityComponent)
-    .addComponent(RigidBodyComponent, { mass: 1, type: 'sphere' })
+    .addComponent(RigidBodyComponent, { mass: 2, type: 'sphere' })
     .addComponent(PlayerTagComponent)
     .addComponent(ScoreComponent)
 }

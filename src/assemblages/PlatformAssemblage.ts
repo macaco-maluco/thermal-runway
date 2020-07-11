@@ -1,28 +1,33 @@
 import { World } from 'ecsy'
+import Color from 'color'
 import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import PlatformTagComponent from '../tags/PlatformTagComponent'
 
-const STARTING_SIZE = 80
+const STARTING_SIZE = 40
 const PLATFORM_DEPTH = 20
 const PLATFORM_WIDTH = 3
-const PADDING = 10
+const PADDING = 4
 
 export const createPlatform = (world: World, x: number, z: number) => {
+  const sturdiness = Math.random()
+  const platformColor = Color('purple').darken(sturdiness).hex()
+
   const stickHeight = 0.01
   const stickWidth = 2
   const platformHeight = 1
   const platformWidth = PLATFORM_WIDTH
   const platformDepth = PLATFORM_DEPTH
 
-  const position = -z * (PLATFORM_DEPTH + PADDING) - STARTING_SIZE + 5
+  const positionZ = -z * (PLATFORM_DEPTH + PADDING) - STARTING_SIZE + 5
+  const positionY = -0.5
 
   // stick
   world
     .createEntity()
-    .addComponent(PositionComponent, { x, z: position })
+    .addComponent(PositionComponent, { x, z: positionZ, y: positionY })
     .addComponent(ModelComponent, { type: 'box', color: 'blue' })
     .addComponent(ScaleComponent, { y: stickHeight, x: stickWidth, z: stickWidth })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
@@ -31,10 +36,10 @@ export const createPlatform = (world: World, x: number, z: number) => {
   // platform
   world
     .createEntity()
-    .addComponent(PositionComponent, { x, z: position, y: stickHeight + 0.5 })
-    .addComponent(ModelComponent, { type: 'box', color: 'purple' })
+    .addComponent(PositionComponent, { x, z: positionZ, y: stickHeight + 0.5 + positionY })
+    .addComponent(ModelComponent, { type: 'box', color: platformColor })
     .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformDepth })
-    .addComponent(RigidBodyComponent, { mass: 5, type: 'box' })
+    .addComponent(RigidBodyComponent, { mass: 10 * sturdiness + 0.5, type: 'box' })
     .addComponent(PlatformTagComponent)
 }
 

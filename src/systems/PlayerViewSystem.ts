@@ -10,7 +10,8 @@ import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateCom
 export default class PlayerViewSystem extends System {
   playerPosition: PositionComponent
   playerScale: ScaleComponent
-  playerDirection = 0
+  playerYaw = 0
+  playerPitch = 0
   playerViewScale = 0.05
   playerRemoved = false
 
@@ -33,9 +34,11 @@ export default class PlayerViewSystem extends System {
       const { rigidBody } = entity.getComponent(AmmoRigidBodyStateComponent)
       const velocity = rigidBody.getLinearVelocity()
 
-      const vector = new THREE.Vector2(velocity.x(), velocity.z())
+      const yawVector = new THREE.Vector2(velocity.x(), velocity.z())
+      const pitchVector = new THREE.Vector2(velocity.z(), velocity.y())
 
-      this.playerDirection = vector.angle() + 90 * (Math.PI / 180)
+      this.playerYaw = yawVector.angle() + 90 * (Math.PI / 180)
+      this.playerPitch = pitchVector.angle() + 180 * (Math.PI / 180)
     })
 
     this.queries.playerRigidBody.removed.forEach((entity) => {
@@ -54,7 +57,8 @@ export default class PlayerViewSystem extends System {
       playerViewPosition.y = this.playerPosition.y - this.playerScale.x / 2 + 0.2
       playerViewPosition.z = this.playerPosition.z
 
-      playerViewPosition.rotationY = this.playerDirection * -1
+      playerViewPosition.rotationY = this.playerYaw * -1
+      playerViewPosition.rotationX = this.playerPitch * -1
     })
   }
 }

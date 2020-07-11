@@ -16,7 +16,9 @@
     "last 1 chrome versions"
   ],
   "dependencies": {
+    "@types/color": "^3.0.1",
     "ammojs-typed": "^1.0.4",
+    "color": "^3.1.2",
     "ecsy": "^0.3.1",
     "three": "^0.118.3"
   }
