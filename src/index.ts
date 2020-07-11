@@ -18,7 +18,12 @@ import PlayerTagComponent from './tags/PlayerTagComponent'
 import PlayerViewSystem from './systems/PlayerViewSystem'
 import PlayerViewTagComponent from './tags/PlayerViewTagComponent'
 import GameOverSystem from './systems/GameOverSystem'
+<<<<<<< HEAD
 import NewGameSystem from './systems/NewGameSystem'
+import UISystem from './systems/UISystem'
+=======
+import UISystem from './systems/UISystem'
+>>>>>>> baa1cc261f1aaced9643c3bbcf4a989f1171d12a
 
 const world = new World()
 
@@ -43,6 +48,7 @@ world.registerSystem(PlayerMovementSystem)
 world.registerSystem(PhysicsSystem)
 world.registerSystem(PlayerViewSystem)
 world.registerSystem(RenderingSystem)
+world.registerSystem(UISystem)
 
 let lastTime = performance.now()
 

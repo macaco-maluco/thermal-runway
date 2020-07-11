@@ -25,7 +25,7 @@ export default class RenderingSystem extends System {
     renderer.setClearColor(0xc5c5c3)
     renderer.shadowMapEnabled = true
 
-    document.body.appendChild(renderer.domElement)
+    document.getElementById('canvas').appendChild(renderer.domElement)
 
     function handleWindowResize() {
       const height = window.innerHeight
