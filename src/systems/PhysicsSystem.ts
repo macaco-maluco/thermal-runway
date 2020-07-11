@@ -75,7 +75,7 @@ export class PhysicsSystem extends System {
       const bodyVelocity = rigidBody.rigidBody.getLinearVelocity()
 
       const newBodyVelocity = new Ammo.btVector3(
-        bodyVelocity.x() + (velocity.x - bodyVelocity.x()) * 0.1,
+        bodyVelocity.x() + (velocity.x - bodyVelocity.x()) * 0.2,
         bodyVelocity.y(),
         bodyVelocity.z() + (velocity.z - bodyVelocity.z()) * 0.1,
       )
