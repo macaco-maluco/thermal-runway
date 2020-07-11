@@ -3,13 +3,14 @@ import GamepadControllerComponent from '../components/GamepadControllerComponent
 import KeyboardControllerComponent from '../components/KeyboardControllerComponent'
 import VelocityComponent from '../components/VelocityComponent'
 import PositionComponent from '../components/PositionComponent'
-import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
 
 export class PlayerMovementSystem extends System {
   execute() {
     this.queries.players.results.forEach((entity) => {
       const keyboard = entity.getComponent(KeyboardControllerComponent)
       const gamepad = entity.getComponent(GamepadControllerComponent)
+
+      if (!gamepad.started && !keyboard.started) return
 
       const boost = keyboard.boost || gamepad.boost
       const left = keyboard.left || gamepad.left
@@ -28,7 +29,6 @@ export class PlayerMovementSystem extends System {
 
       velocity.x = left ? -turnSpeed : right ? turnSpeed : 0
       velocity.z = boost ? -boostSpeed : down ? -breakSpeed : -forwardSpeed
-      // velocity.z = up ? -movementSpeed : down ? movementSpeed : -restingSpeed
       velocity.y = position.grounded && jump ? jumpPower : 0
     })
   }
@@ -47,5 +47,3 @@ interface Controller {
   right: boolean
   jump: boolean
 }
-
-function controll(entity: Entity, controller: Controller) {}

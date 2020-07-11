@@ -16,7 +16,7 @@ export const createPlatform = (world: World, x: number, z: number) => {
   const platformWidth = PLATFORM_WIDTH
   const platformDepth = PLATFORM_DEPTH
 
-  const position = -z * (PLATFORM_DEPTH + PADDING) - STARTING_SIZE
+  const position = -z * (PLATFORM_DEPTH + PADDING) - STARTING_SIZE + 5
 
   // stick
   world
@@ -38,7 +38,7 @@ export const createPlatform = (world: World, x: number, z: number) => {
 export const createStartingPlatform = (world: World) => {
   world
     .createEntity()
-    .addComponent(PositionComponent, { x: 0, z: -STARTING_SIZE / 2 })
+    .addComponent(PositionComponent, { x: 0, z: -STARTING_SIZE / 2 + 1 })
     .addComponent(ModelComponent, { type: 'box', color: 'blue' })
     .addComponent(ScaleComponent, { y: 0.1, x: 2, z: STARTING_SIZE })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })

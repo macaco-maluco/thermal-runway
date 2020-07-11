@@ -2,7 +2,7 @@ import { System, Not } from 'ecsy'
 import GamepadControllerComponent from '../components/GamepadControllerComponent'
 
 export default class GamepadSystem extends System {
-  execute(delta, time) {
+  execute() {
     const gamepads = navigator.getGamepads()
 
     this.queries.controllers.results.forEach((entity) => {
@@ -17,6 +17,8 @@ export default class GamepadSystem extends System {
       controller.right = gamepad.buttons[15].pressed
       controller.jump = gamepad.buttons[0].pressed
       controller.boost = gamepad.buttons[2].pressed
+
+      controller.started = controller.started || controller.jump || controller.boost
     })
   }
 }

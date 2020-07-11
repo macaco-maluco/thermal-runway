@@ -7,6 +7,7 @@ interface GamepadController {
   right: boolean
   jump: boolean
   boost: boolean
+  started: boolean
 }
 
 export default class GamepadControllerComponent extends Component<GamepadController> implements GamepadController {
@@ -16,6 +17,7 @@ export default class GamepadControllerComponent extends Component<GamepadControl
   right: boolean
   jump: boolean
   boost: boolean
+  started: boolean
 }
 
 GamepadControllerComponent.schema = {
@@ -25,4 +27,5 @@ GamepadControllerComponent.schema = {
   right: { type: Types.Boolean },
   jump: { type: Types.Boolean },
   boost: { type: Types.Boolean },
+  started: { type: Types.Boolean },
 }

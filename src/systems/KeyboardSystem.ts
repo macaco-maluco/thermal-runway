@@ -72,7 +72,7 @@ export class KeyboardSystem extends System {
     document.addEventListener('keyup', handleUp)
   }
 
-  execute(delta, time) {
+  execute() {
     this.queries.controllers.results.forEach((entity) => {
       const controller = entity.getMutableComponent(KeyboardControllerComponent)
 
@@ -82,6 +82,8 @@ export class KeyboardSystem extends System {
       controller.right = this.arrowRight
       controller.jump = this.space
       controller.boost = this.shift
+
+      controller.started = controller.started || controller.jump || controller.boost
     })
   }
 }
