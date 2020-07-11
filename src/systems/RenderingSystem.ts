@@ -3,6 +3,7 @@ import { System, Not } from 'ecsy'
 import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
+import ScaleComponent from '../components/ScaleComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -29,7 +30,9 @@ export default class RenderingSystem extends System {
 
     window.addEventListener('resize', handleWindowResize, false)
 
-    camera.position.z = 5
+    camera.position.y = 2
+    camera.position.z = 4
+    camera.lookAt(new THREE.Vector3(0, 0, 0))
 
     createLights().forEach((light) => scene.add(light))
 
@@ -41,11 +44,19 @@ export default class RenderingSystem extends System {
   execute(delta, time) {
     this.queries.uninitialised.results.forEach((entity) => {
       const model = entity.getComponent(ModelComponent)
+      const scale = entity.getComponent(ScaleComponent)
+
       const geometry = new THREE.BoxGeometry()
       const material = new THREE.MeshBasicMaterial({ color: model.color })
+
+      geometry.center()
+
       const cube = new THREE.Mesh(geometry, material)
-      entity.addComponent(ThreeMeshStateComponent, { mesh: cube })
+      cube.scale.set(scale.x, scale.y, scale.z)
+
       this.scene.add(cube)
+
+      entity.addComponent(ThreeMeshStateComponent, { mesh: cube })
     })
 
     this.queries.initialised.results.forEach((entity) => {
@@ -54,6 +65,8 @@ export default class RenderingSystem extends System {
       mesh.position.x = position.x
       mesh.position.y = position.y
       mesh.position.z = position.z
+
+      mesh.quaternion.set(position.rotationX, position.rotationY, position.rotationZ, position.rotationW)
     })
 
     this.renderer.render(this.scene, this.camera)
@@ -62,7 +75,7 @@ export default class RenderingSystem extends System {
 
 RenderingSystem.queries = {
   uninitialised: {
-    components: [ModelComponent, Not(ThreeMeshStateComponent)],
+    components: [ModelComponent, ScaleComponent, Not(ThreeMeshStateComponent)],
   },
 
   initialised: {

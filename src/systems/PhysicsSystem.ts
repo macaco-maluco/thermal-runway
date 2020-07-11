@@ -3,6 +3,7 @@ import Ammo from 'ammojs-typed'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
 import PositionComponent from '../components/PositionComponent'
+import ScaleComponent from '../components/ScaleComponent'
 
 export class PhysicsSystem extends System {
   physicsWorld: Ammo.btDiscreteDynamicsWorld
@@ -21,7 +22,7 @@ export class PhysicsSystem extends System {
         collisionConfiguration,
       )
 
-      physicsWorld.setGravity(new Ammo.btVector3(0, -2, 0))
+      physicsWorld.setGravity(new Ammo.btVector3(0, -1, 0))
 
       this.physicsWorld = physicsWorld
     })
@@ -33,19 +34,20 @@ export class PhysicsSystem extends System {
     this.queries.uninitialised.results.forEach((entity) => {
       const rigidBody = entity.getComponent(RigidBodyComponent)
       const position = entity.getComponent(PositionComponent)
+      const scale = entity.getComponent(ScaleComponent)
 
       const transform = new Ammo.btTransform()
       transform.setIdentity()
       transform.setOrigin(new Ammo.btVector3(position.x, position.y, position.z))
-      transform.setRotation(new Ammo.btQuaternion(position.rotationX, position.rotationY, position.rotationZ, 1))
+      transform.setRotation(
+        new Ammo.btQuaternion(position.rotationX, position.rotationY, position.rotationZ, position.rotationW),
+      )
       const motionState = new Ammo.btDefaultMotionState(transform)
 
-      const colShape = new Ammo.btBoxShape(
-        new Ammo.btVector3(rigidBody.scaleX * 0.5, rigidBody.scaleY * 0.5, rigidBody.scaleZ * 0.5),
-      )
+      const colShape = new Ammo.btBoxShape(new Ammo.btVector3(scale.x * 0.5, scale.y * 0.5, scale.z * 0.5))
 
       // https://gamedev.stackexchange.com/questions/113774/why-do-physics-engines-use-collision-margins
-      colShape.setMargin(1)
+      colShape.setMargin(0.05)
 
       const localInertia = new Ammo.btVector3(0, 0, 0)
       colShape.calculateLocalInertia(rigidBody.mass, localInertia)
@@ -75,10 +77,10 @@ export class PhysicsSystem extends System {
         position.x = p.x()
         position.y = p.y()
         position.z = p.z()
-
         position.rotationX = q.x()
         position.rotationY = q.y()
         position.rotationZ = q.z()
+        position.rotationW = q.w()
       }
     })
   }
@@ -86,7 +88,7 @@ export class PhysicsSystem extends System {
 
 PhysicsSystem.queries = {
   uninitialised: {
-    components: [PositionComponent, RigidBodyComponent, Not(AmmoRigidBodyStateComponent)],
+    components: [PositionComponent, ScaleComponent, RigidBodyComponent, Not(AmmoRigidBodyStateComponent)],
   },
 
   initialised: {
