@@ -6,6 +6,7 @@ import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 import ScaleComponent from '../components/ScaleComponent'
+import ControllerComponent from '../components/ControllerComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -36,8 +37,8 @@ export default class RenderingSystem extends System {
 
     window.addEventListener('resize', handleWindowResize, false)
 
-    camera.position.y = 2
-    camera.position.z = 4
+    camera.position.y = 4
+    camera.position.z = 7
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
     createLights().forEach((light) => scene.add(light))
@@ -96,6 +97,11 @@ export default class RenderingSystem extends System {
       mesh.quaternion.set(position.rotationX, position.rotationY, position.rotationZ, position.rotationW)
     })
 
+    this.queries.cameraTracker.results.forEach((entity) => {
+      const position = entity.getComponent(PositionComponent)
+      this.camera.lookAt(position.x, position.y, position.z)
+    })
+
     this.renderer.render(this.scene, this.camera)
   }
 }
@@ -121,6 +127,10 @@ RenderingSystem.queries = {
 
   initialised: {
     components: [PositionComponent, ThreeMeshStateComponent],
+  },
+
+  cameraTracker: {
+    components: [ControllerComponent, PositionComponent],
   },
 }
 

@@ -11,13 +11,9 @@ import ControllerComponent from './components/ControllerComponent'
 import VelocityComponent from './components/VelocityComponent'
 import { KeyboardSystem } from './systems/KeyboardSystem'
 import { PlayerMovementSystem } from './systems/PlayerMovementSystem'
+import PlatformCreationSystem from './systems/PlatformCreationSystem'
 
 const world = new World()
-
-world.registerSystem(KeyboardSystem)
-world.registerSystem(PlayerMovementSystem)
-world.registerSystem(PhysicsSystem)
-world.registerSystem(RenderingSystem)
 
 world.registerComponent(PositionComponent)
 world.registerComponent(ControllerComponent)
@@ -28,30 +24,21 @@ world.registerComponent(ThreeMeshStateComponent)
 world.registerComponent(RigidBodyComponent)
 world.registerComponent(AmmoRigidBodyStateComponent)
 
-world
-  .createEntity()
-  .addComponent(PositionComponent, { x: 0, y: 6, z: 0.9 })
-  .addComponent(ModelComponent, { color: 'blue', type: 'box' })
-  .addComponent(ScaleComponent, { x: 1, y: 1, z: 1 })
-  .addComponent(RigidBodyComponent, { mass: 1, type: 'box' })
+world.registerSystem(PlatformCreationSystem)
+world.registerSystem(KeyboardSystem)
+world.registerSystem(PlayerMovementSystem)
+world.registerSystem(PhysicsSystem)
+world.registerSystem(RenderingSystem)
 
 // Player physics body
 world
   .createEntity()
-  .addComponent(PositionComponent, { x: -0.9, y: 3, z: 0 })
+  .addComponent(PositionComponent, { y: 2 })
   .addComponent(ModelComponent, { color: 'red', type: 'character' })
   .addComponent(ScaleComponent, { x: 0.5, y: 0.5, z: 0.5 })
   .addComponent(ControllerComponent)
   .addComponent(VelocityComponent)
   .addComponent(RigidBodyComponent, { mass: 1, type: 'sphere' })
-
-// floor
-world
-  .createEntity()
-  .addComponent(PositionComponent, { x: 0, y: -1.5, z: 0 })
-  .addComponent(ModelComponent, { color: 'green', type: 'box' })
-  .addComponent(ScaleComponent, { x: 10, y: 0.2, z: 10 })
-  .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
 
 let lastTime = performance.now()
 
