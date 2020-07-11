@@ -5,6 +5,7 @@ interface Controller {
   down: boolean
   left: boolean
   right: boolean
+  jump: boolean
 }
 
 export default class ControllerComponent extends Component<Controller> implements Controller {
@@ -12,6 +13,7 @@ export default class ControllerComponent extends Component<Controller> implement
   down: boolean
   left: boolean
   right: boolean
+  jump: boolean
 }
 
 ControllerComponent.schema = {
@@ -19,4 +21,5 @@ ControllerComponent.schema = {
   down: { type: Types.Boolean },
   left: { type: Types.Boolean },
   right: { type: Types.Boolean },
+  jump: { type: Types.Boolean },
 }

@@ -30,24 +30,25 @@ world.registerComponent(AmmoRigidBodyStateComponent)
 
 world
   .createEntity()
-  .addComponent(PositionComponent, { x: 0, y: 6, z: 0.9, rotationX: 0, rotationY: 0, rotationZ: 0, rotationW: 1 })
+  .addComponent(PositionComponent, { x: 0, y: 6, z: 0.9 })
   .addComponent(ModelComponent, { color: 'blue' })
   .addComponent(ScaleComponent, { x: 1, y: 1, z: 1 })
   .addComponent(RigidBodyComponent, { mass: 1, type: 'box' })
 
+// Player physics body
 world
   .createEntity()
-  .addComponent(PositionComponent, { x: -0.9, y: 3, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0, rotationW: 1 })
+  .addComponent(PositionComponent, { x: -0.9, y: 3, z: 0 })
   .addComponent(ModelComponent, { color: 'red' })
-  .addComponent(ScaleComponent, { x: 0.3, y: 1.5, z: 0.3 })
+  .addComponent(ScaleComponent, { x: 0.5, y: 0.5, z: 0.5 })
   .addComponent(ControllerComponent)
   .addComponent(VelocityComponent)
-  .addComponent(RigidBodyComponent, { mass: 1, type: 'box' })
+  .addComponent(RigidBodyComponent, { mass: 1, type: 'sphere' })
 
 // floor
 world
   .createEntity()
-  .addComponent(PositionComponent, { x: 0, y: -1.5, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0, rotationW: 1 })
+  .addComponent(PositionComponent, { x: 0, y: -1.5, z: 0 })
   .addComponent(ModelComponent, { color: 'green' })
   .addComponent(ScaleComponent, { x: 10, y: 0.2, z: 10 })
   .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })

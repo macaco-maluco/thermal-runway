@@ -1,6 +1,6 @@
 import { Component, Types } from 'ecsy'
 
-type BodyType = 'box'
+type BodyType = 'box' | 'sphere'
 
 interface RigidBody {
   type: BodyType

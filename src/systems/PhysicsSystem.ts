@@ -5,6 +5,7 @@ import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateCom
 import PositionComponent from '../components/PositionComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import VelocityComponent from '../components/VelocityComponent'
+import ControllerComponent from '../components/ControllerComponent'
 
 export class PhysicsSystem extends System {
   physicsWorld: Ammo.btDiscreteDynamicsWorld
@@ -45,9 +46,12 @@ export class PhysicsSystem extends System {
       )
       const motionState = new Ammo.btDefaultMotionState(transform)
 
-      const colShape = new Ammo.btBoxShape(new Ammo.btVector3(scale.x * 0.5, scale.y * 0.5, scale.z * 0.5))
-
+      const colShape =
+        rigidBody.type === 'sphere'
+          ? new Ammo.btSphereShape(scale.x * 0.5)
+          : new Ammo.btBoxShape(new Ammo.btVector3(scale.x * 0.5, scale.y * 0.5, scale.z * 0.5))
       // https://gamedev.stackexchange.com/questions/113774/why-do-physics-engines-use-collision-margins
+
       colShape.setMargin(0.05)
 
       const localInertia = new Ammo.btVector3(0, 0, 0)
@@ -68,17 +72,17 @@ export class PhysicsSystem extends System {
       const bodyVelocity = rigidBody.rigidBody.getLinearVelocity()
       const angularVelocity = rigidBody.rigidBody.getAngularVelocity()
 
-      const impulse = new Ammo.btVector3(
+      const movementImpulse = new Ammo.btVector3(
         bodyVelocity.x() + velocity.x,
-        bodyVelocity.y() + velocity.y,
+        bodyVelocity.y(),
         bodyVelocity.z() + velocity.z,
       )
 
-      rigidBody.rigidBody.setAngularVelocity(
-        new Ammo.btVector3(angularVelocity.x(), velocity.rotationY, angularVelocity.z()),
-      )
+      const jumpImpulse = new Ammo.btVector3(0, velocity.y, 0)
+      const currentPosition = new Ammo.btVector3(position.x, position.y, position.z)
 
-      rigidBody.rigidBody.setLinearVelocity(impulse)
+      rigidBody.rigidBody.setLinearVelocity(movementImpulse)
+      rigidBody.rigidBody.applyCentralImpulse(jumpImpulse)
     })
 
     this.physicsWorld.stepSimulation(delta, 1)
@@ -104,6 +108,16 @@ export class PhysicsSystem extends System {
         position.rotationW = q.w()
       }
     })
+
+    this.queries.jumpable.results.forEach((entity) => {
+      const scale = entity.getComponent(ScaleComponent)
+      const position = entity.getMutableComponent(PositionComponent)
+      const testFrom = new Ammo.btVector3(position.x, position.y, position.z)
+      const testTo = new Ammo.btVector3(testFrom.x(), testFrom.y() - scale.x, testFrom.z())
+      const res = new Ammo.ClosestRayResultCallback(testFrom, testTo)
+      this.physicsWorld.rayTest(testFrom, testTo, res)
+      position.grounded = res.hasHit()
+    })
   }
 }
 
@@ -118,5 +132,9 @@ PhysicsSystem.queries = {
 
   motion: {
     components: [AmmoRigidBodyStateComponent, PositionComponent, VelocityComponent],
+  },
+
+  jumpable: {
+    components: [PositionComponent, ControllerComponent, ScaleComponent],
   },
 }

@@ -4,6 +4,7 @@ import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 import ScaleComponent from '../components/ScaleComponent'
+import RigidBodyComponent from '../components/RigidBodyComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -44,9 +45,10 @@ export default class RenderingSystem extends System {
   execute(delta, time) {
     this.queries.uninitialised.results.forEach((entity) => {
       const model = entity.getComponent(ModelComponent)
+      const rigidBody = entity.getComponent(RigidBodyComponent)
       const scale = entity.getComponent(ScaleComponent)
 
-      const geometry = new THREE.BoxGeometry()
+      const geometry = rigidBody.type === 'sphere' ? new THREE.SphereBufferGeometry(scale.x) : new THREE.BoxGeometry()
       const material = new THREE.MeshStandardMaterial({ color: model.color })
 
       geometry.center()
