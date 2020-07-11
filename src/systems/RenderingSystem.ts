@@ -47,7 +47,7 @@ export default class RenderingSystem extends System {
       const scale = entity.getComponent(ScaleComponent)
 
       const geometry = new THREE.BoxGeometry()
-      const material = new THREE.MeshBasicMaterial({ color: model.color })
+      const material = new THREE.MeshStandardMaterial({ color: model.color })
 
       geometry.center()
 
@@ -84,12 +84,12 @@ RenderingSystem.queries = {
 }
 
 function createLights() {
-  const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9)
+  // const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9)
 
   const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
   shadowLight.position.set(150, 350, 350)
 
   const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
 
-  return [hemisphereLight, shadowLight, ambientLight]
+  return [shadowLight, ambientLight]
 }

@@ -4,6 +4,7 @@ import RigidBodyComponent from '../components/RigidBodyComponent'
 import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
 import PositionComponent from '../components/PositionComponent'
 import ScaleComponent from '../components/ScaleComponent'
+import VelocityComponent from '../components/VelocityComponent'
 
 export class PhysicsSystem extends System {
   physicsWorld: Ammo.btDiscreteDynamicsWorld
@@ -22,7 +23,7 @@ export class PhysicsSystem extends System {
         collisionConfiguration,
       )
 
-      physicsWorld.setGravity(new Ammo.btVector3(0, -1, 0))
+      physicsWorld.setGravity(new Ammo.btVector3(0, -10, 0))
 
       this.physicsWorld = physicsWorld
     })
@@ -60,6 +61,26 @@ export class PhysicsSystem extends System {
       entity.addComponent(AmmoRigidBodyStateComponent, { rigidBody: ammoRigidBody })
     })
 
+    this.queries.motion.results.forEach((entity) => {
+      const velocity = entity.getComponent(VelocityComponent)
+      const position = entity.getComponent(PositionComponent)
+      const rigidBody = entity.getComponent(AmmoRigidBodyStateComponent)
+      const bodyVelocity = rigidBody.rigidBody.getLinearVelocity()
+      const angularVelocity = rigidBody.rigidBody.getAngularVelocity()
+
+      const impulse = new Ammo.btVector3(
+        bodyVelocity.x() + velocity.x,
+        bodyVelocity.y() + velocity.y,
+        bodyVelocity.z() + velocity.z,
+      )
+
+      rigidBody.rigidBody.setAngularVelocity(
+        new Ammo.btVector3(angularVelocity.x(), velocity.rotationY, angularVelocity.z()),
+      )
+
+      rigidBody.rigidBody.setLinearVelocity(impulse)
+    })
+
     this.physicsWorld.stepSimulation(delta, 1)
 
     const tmpTrans = new Ammo.btTransform()
@@ -93,5 +114,9 @@ PhysicsSystem.queries = {
 
   initialised: {
     components: [AmmoRigidBodyStateComponent],
+  },
+
+  motion: {
+    components: [AmmoRigidBodyStateComponent, PositionComponent, VelocityComponent],
   },
 }

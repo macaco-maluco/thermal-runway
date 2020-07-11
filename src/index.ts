@@ -7,13 +7,21 @@ import { PhysicsSystem } from './systems/PhysicsSystem'
 import RigidBodyComponent from './components/RigidBodyComponent'
 import { AmmoRigidBodyStateComponent } from './components/AmmoRigidBodyStateComponent'
 import ScaleComponent from './components/ScaleComponent'
+import ControllerComponent from './components/ControllerComponent'
+import VelocityComponent from './components/VelocityComponent'
+import { KeyboardSystem } from './systems/KeyboardSystem'
+import { PlayerMovementSystem } from './systems/PlayerMovementSystem'
 
 const world = new World()
 
-world.registerSystem(RenderingSystem)
+world.registerSystem(KeyboardSystem)
+world.registerSystem(PlayerMovementSystem)
 world.registerSystem(PhysicsSystem)
+world.registerSystem(RenderingSystem)
 
 world.registerComponent(PositionComponent)
+world.registerComponent(ControllerComponent)
+world.registerComponent(VelocityComponent)
 world.registerComponent(ModelComponent)
 world.registerComponent(ScaleComponent)
 world.registerComponent(ThreeMeshStateComponent)
@@ -21,7 +29,7 @@ world.registerComponent(RigidBodyComponent)
 world.registerComponent(AmmoRigidBodyStateComponent)
 
 world
-  .createEntity('blue')
+  .createEntity()
   .addComponent(PositionComponent, { x: 0, y: 6, z: 0.9, rotationX: 0, rotationY: 0, rotationZ: 0, rotationW: 1 })
   .addComponent(ModelComponent, { color: 'blue' })
   .addComponent(ScaleComponent, { x: 1, y: 1, z: 1 })
@@ -31,7 +39,9 @@ world
   .createEntity()
   .addComponent(PositionComponent, { x: -0.9, y: 3, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0, rotationW: 1 })
   .addComponent(ModelComponent, { color: 'red' })
-  .addComponent(ScaleComponent, { x: 1, y: 1, z: 1 })
+  .addComponent(ScaleComponent, { x: 0.3, y: 1.5, z: 0.3 })
+  .addComponent(ControllerComponent)
+  .addComponent(VelocityComponent)
   .addComponent(RigidBodyComponent, { mass: 1, type: 'box' })
 
 // floor
