@@ -12,7 +12,7 @@ const PADDING = 10
 export const createPlatform = (world: World, x: number, z: number) => {
   const stickHeight = 0.01
   const stickWidth = 2
-  const platformHeight = 0.1
+  const platformHeight = 1
   const platformWidth = PLATFORM_WIDTH
   const platformDepth = PLATFORM_DEPTH
 

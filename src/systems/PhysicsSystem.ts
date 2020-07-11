@@ -52,7 +52,7 @@ export class PhysicsSystem extends System {
           : new Ammo.btBoxShape(new Ammo.btVector3(scale.x * 0.5, scale.y * 0.5, scale.z * 0.5))
 
       // https://gamedev.stackexchange.com/questions/113774/why-do-physics-engines-use-collision-margins
-      colShape.setMargin(0.05)
+      colShape.setMargin(0)
 
       const localInertia = new Ammo.btVector3(0, 0, 0)
       colShape.calculateLocalInertia(rigidBody.mass, localInertia)
