@@ -74,15 +74,15 @@ export class PhysicsSystem extends System {
       const rigidBody = entity.getComponent(AmmoRigidBodyStateComponent)
       const bodyVelocity = rigidBody.rigidBody.getLinearVelocity()
 
-      const movementImpulse = new Ammo.btVector3(
+      const newBodyVelocity = new Ammo.btVector3(
         bodyVelocity.x() + velocity.x,
         bodyVelocity.y(),
-        bodyVelocity.z() + velocity.z,
+        bodyVelocity.z() + (velocity.z - bodyVelocity.z()) * 0.1,
       )
 
       const jumpImpulse = new Ammo.btVector3(0, velocity.y, 0)
 
-      rigidBody.rigidBody.setLinearVelocity(movementImpulse)
+      rigidBody.rigidBody.setLinearVelocity(newBodyVelocity)
       rigidBody.rigidBody.applyCentralImpulse(jumpImpulse)
     })
 

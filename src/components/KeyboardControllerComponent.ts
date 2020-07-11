@@ -6,6 +6,7 @@ interface KeyboardController {
   left: boolean
   right: boolean
   jump: boolean
+  boost: boolean
 }
 
 export default class KeyboardControllerComponent extends Component<KeyboardController> implements KeyboardController {
@@ -14,6 +15,7 @@ export default class KeyboardControllerComponent extends Component<KeyboardContr
   left: boolean
   right: boolean
   jump: boolean
+  boost: boolean
 }
 
 KeyboardControllerComponent.schema = {
@@ -22,4 +24,5 @@ KeyboardControllerComponent.schema = {
   left: { type: Types.Boolean },
   right: { type: Types.Boolean },
   jump: { type: Types.Boolean },
+  boost: { type: Types.Boolean },
 }

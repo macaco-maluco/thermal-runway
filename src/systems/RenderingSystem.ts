@@ -125,7 +125,7 @@ export default class RenderingSystem extends System {
     this.queries.cameraTracker.results.forEach((entity) => {
       const position = entity.getComponent(PositionComponent)
       this.camera.position.x = 0
-      this.camera.position.y = position.y + 6
+      this.camera.position.y = position.y + 5
       this.camera.position.z = position.z + 6
       this.camera.lookAt(0, position.y, position.z)
 

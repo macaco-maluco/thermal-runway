@@ -11,6 +11,7 @@ export class PlayerMovementSystem extends System {
       const keyboard = entity.getComponent(KeyboardControllerComponent)
       const gamepad = entity.getComponent(GamepadControllerComponent)
 
+      const boost = keyboard.boost || gamepad.boost
       const left = keyboard.left || gamepad.left
       const right = keyboard.right || gamepad.right
       const up = keyboard.up || gamepad.up
@@ -19,11 +20,15 @@ export class PlayerMovementSystem extends System {
 
       const velocity = entity.getMutableComponent(VelocityComponent)
       const position = entity.getMutableComponent(PositionComponent)
-      const movementSpeed = 0.15 // could be its own component (like player attributes)
+      const forwardSpeed = 15 // could be its own component (like player attributes)
+      const breakSpeed = 2
+      const turnSpeed = 0.35
       const jumpPower = 2
+      const boostSpeed = 40
 
-      velocity.x = left ? -movementSpeed : right ? movementSpeed : 0
-      velocity.z = up ? -movementSpeed : down ? movementSpeed : 0
+      velocity.x = left ? -turnSpeed : right ? turnSpeed : 0
+      velocity.z = boost ? -boostSpeed : down ? -breakSpeed : -forwardSpeed
+      // velocity.z = up ? -movementSpeed : down ? movementSpeed : -restingSpeed
       velocity.y = position.grounded && jump ? jumpPower : 0
     })
   }

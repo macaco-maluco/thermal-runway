@@ -7,6 +7,7 @@ export class KeyboardSystem extends System {
   arrowLeft: boolean
   arrowRight: boolean
   space: boolean
+  shift: boolean
 
   init() {
     const handleDown = (event: KeyboardEvent) => {
@@ -30,6 +31,10 @@ export class KeyboardSystem extends System {
         case ' ':
           event.preventDefault()
           this.space = true
+          break
+        case 'Shift':
+          event.preventDefault()
+          this.shift = true
           break
       }
     }
@@ -56,6 +61,10 @@ export class KeyboardSystem extends System {
           event.preventDefault()
           this.space = false
           break
+        case 'Shift':
+          event.preventDefault()
+          this.shift = false
+          break
       }
     }
 
@@ -72,6 +81,7 @@ export class KeyboardSystem extends System {
       controller.left = this.arrowLeft
       controller.right = this.arrowRight
       controller.jump = this.space
+      controller.boost = this.shift
     })
   }
 }
