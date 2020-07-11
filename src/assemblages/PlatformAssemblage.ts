@@ -5,17 +5,23 @@ import ScaleComponent from '../components/ScaleComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 
 const STARTING_SIZE = 80
+const PLATFORM_DEPTH = 20
+const PLATFORM_WIDTH = 3
+const PADDING = 10
 
 export const createPlatform = (world: World, x: number, z: number) => {
   const stickHeight = 0.01
-  const stickWidth = 0.5
+  const stickWidth = 2
   const platformHeight = 0.1
-  const platformWidth = 2
+  const platformWidth = PLATFORM_WIDTH
+  const platformDepth = PLATFORM_DEPTH
+
+  const position = -z * (PLATFORM_DEPTH + PADDING) - STARTING_SIZE
 
   // stick
   world
     .createEntity()
-    .addComponent(PositionComponent, { x, z: z - STARTING_SIZE })
+    .addComponent(PositionComponent, { x, z: position })
     .addComponent(ModelComponent, { type: 'box', color: 'blue' })
     .addComponent(ScaleComponent, { y: stickHeight, x: stickWidth, z: stickWidth })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
@@ -23,9 +29,9 @@ export const createPlatform = (world: World, x: number, z: number) => {
   // platform
   world
     .createEntity()
-    .addComponent(PositionComponent, { x, z: z - STARTING_SIZE, y: stickHeight + 0.5 })
+    .addComponent(PositionComponent, { x, z: position, y: stickHeight + 0.5 })
     .addComponent(ModelComponent, { type: 'box', color: 'purple' })
-    .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformWidth * 3 })
+    .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformDepth })
     .addComponent(RigidBodyComponent, { mass: 5, type: 'box' })
 }
 

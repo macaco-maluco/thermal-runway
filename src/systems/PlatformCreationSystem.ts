@@ -6,7 +6,7 @@ export default class PlatformCreationSystem extends System {
     createStartingPlatform(this.world)
 
     for (let i = 1; i < 100; i++) {
-      createPlatform(this.world, Math.random() * 6 - 3, -10 * i)
+      createPlatform(this.world, Math.random() * 6 - 3, i)
     }
   }
 
