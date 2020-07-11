@@ -18,10 +18,11 @@ import PlayerTagComponent from './tags/PlayerTagComponent'
 import PlayerViewSystem from './systems/PlayerViewSystem'
 import PlayerViewTagComponent from './tags/PlayerViewTagComponent'
 import GameOverSystem from './systems/GameOverSystem'
-import UISystem from './systems/UISystem'
 import ScoreComponent from './components/ScoreComponent'
-import NewGameSystem from './systems/NewGameSystem'
 import ScoringSystem from './systems/ScoringSystem'
+import NewGameSystem from './systems/NewGameSystem'
+import UISystem from './systems/UISystem'
+import PlatformTagComponent from './tags/PlatformTagComponent'
 
 const world = new World()
 
@@ -37,6 +38,7 @@ world.registerComponent(AmmoRigidBodyStateComponent)
 world.registerComponent(PlayerTagComponent)
 world.registerComponent(PlayerViewTagComponent)
 world.registerComponent(ScoreComponent)
+world.registerComponent(PlatformTagComponent)
 
 world.registerSystem(NewGameSystem)
 world.registerSystem(GameOverSystem)

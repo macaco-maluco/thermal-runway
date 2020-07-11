@@ -3,6 +3,7 @@ import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
+import PlatformTagComponent from '../tags/PlatformTagComponent'
 
 const STARTING_SIZE = 80
 const PLATFORM_DEPTH = 20
@@ -25,6 +26,7 @@ export const createPlatform = (world: World, x: number, z: number) => {
     .addComponent(ModelComponent, { type: 'box', color: 'blue' })
     .addComponent(ScaleComponent, { y: stickHeight, x: stickWidth, z: stickWidth })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
+    .addComponent(PlatformTagComponent)
 
   // platform
   world
@@ -33,6 +35,7 @@ export const createPlatform = (world: World, x: number, z: number) => {
     .addComponent(ModelComponent, { type: 'box', color: 'purple' })
     .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformDepth })
     .addComponent(RigidBodyComponent, { mass: 5, type: 'box' })
+    .addComponent(PlatformTagComponent)
 }
 
 export const createStartingPlatform = (world: World) => {
