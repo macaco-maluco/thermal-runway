@@ -6,6 +6,7 @@ import GamepadControllerComponent from '../components/GamepadControllerComponent
 import VelocityComponent from '../components/VelocityComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
+import ScoreComponent from '../components/ScoreComponent'
 
 export const createPlayerBody = (world: World) => {
   // Player physics body
@@ -19,4 +20,5 @@ export const createPlayerBody = (world: World) => {
     .addComponent(VelocityComponent)
     .addComponent(RigidBodyComponent, { mass: 1, type: 'sphere' })
     .addComponent(PlayerTagComponent)
+    .addComponent(ScoreComponent)
 }

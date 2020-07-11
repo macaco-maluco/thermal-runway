@@ -1,6 +1,6 @@
 import { System } from 'ecsy'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
-import PositionComponent from '../components/PositionComponent'
+import ScoreComponent from '../components/ScoreComponent'
 
 export default class UISystem extends System {
   root: HTMLDivElement
@@ -11,16 +11,14 @@ export default class UISystem extends System {
 
   execute() {
     this.queries.players.results.forEach((entity) => {
-      const position = entity.getComponent(PositionComponent)
-      const points = Math.round(position.z * -1)
-
-      this.root.innerHTML = `${points} points`
+      const score = entity.getComponent(ScoreComponent)
+      this.root.innerHTML = `${score.points} points`
     })
   }
 }
 
 UISystem.queries = {
   players: {
-    components: [PlayerTagComponent, PositionComponent],
+    components: [PlayerTagComponent, ScoreComponent],
   },
 }
