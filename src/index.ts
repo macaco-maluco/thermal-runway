@@ -31,7 +31,7 @@ world.registerComponent(AmmoRigidBodyStateComponent)
 world
   .createEntity()
   .addComponent(PositionComponent, { x: 0, y: 6, z: 0.9 })
-  .addComponent(ModelComponent, { color: 'blue' })
+  .addComponent(ModelComponent, { color: 'blue', type: 'box' })
   .addComponent(ScaleComponent, { x: 1, y: 1, z: 1 })
   .addComponent(RigidBodyComponent, { mass: 1, type: 'box' })
 
@@ -39,7 +39,7 @@ world
 world
   .createEntity()
   .addComponent(PositionComponent, { x: -0.9, y: 3, z: 0 })
-  .addComponent(ModelComponent, { color: 'red' })
+  .addComponent(ModelComponent, { color: 'red', type: 'character' })
   .addComponent(ScaleComponent, { x: 0.5, y: 0.5, z: 0.5 })
   .addComponent(ControllerComponent)
   .addComponent(VelocityComponent)
@@ -49,7 +49,7 @@ world
 world
   .createEntity()
   .addComponent(PositionComponent, { x: 0, y: -1.5, z: 0 })
-  .addComponent(ModelComponent, { color: 'green' })
+  .addComponent(ModelComponent, { color: 'green', type: 'box' })
   .addComponent(ScaleComponent, { x: 10, y: 0.2, z: 10 })
   .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
 

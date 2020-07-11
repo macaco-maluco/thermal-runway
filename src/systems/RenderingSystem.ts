@@ -1,15 +1,18 @@
 import * as THREE from 'three'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { System, Not } from 'ecsy'
 import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 import ScaleComponent from '../components/ScaleComponent'
-import RigidBodyComponent from '../components/RigidBodyComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
   camera: THREE.PerspectiveCamera
   renderer: THREE.WebGLRenderer
+
+  character: THREE.Group
 
   init() {
     const scene = new THREE.Scene()
@@ -17,6 +20,8 @@ export default class RenderingSystem extends System {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setClearColor(0xc5c5c3)
+
     document.body.appendChild(renderer.domElement)
 
     function handleWindowResize() {
@@ -37,28 +42,48 @@ export default class RenderingSystem extends System {
 
     createLights().forEach((light) => scene.add(light))
 
+    const loader = new FBXLoader()
+    loader.load('character.fbx', (object) => {
+      object.scale.x = 0.005
+      object.scale.y = 0.005
+      object.scale.z = 0.005
+
+      const group = new THREE.Group()
+      group.add(object)
+
+      this.character = group
+    })
+
+    // const controls = new OrbitControls(camera, renderer.domElement)
+    // controls.target.set(0, 100, 0)
+    // controls.update()
+
     this.scene = scene
     this.renderer = renderer
     this.camera = camera
   }
 
   execute(delta, time) {
+    if (!this.character) return
+
     this.queries.uninitialised.results.forEach((entity) => {
       const model = entity.getComponent(ModelComponent)
-      const rigidBody = entity.getComponent(RigidBodyComponent)
       const scale = entity.getComponent(ScaleComponent)
 
-      const geometry = rigidBody.type === 'sphere' ? new THREE.SphereBufferGeometry(scale.x) : new THREE.BoxGeometry()
-      const material = new THREE.MeshStandardMaterial({ color: model.color })
+      console.log('this.character', this.character)
 
-      geometry.center()
+      const mesh =
+        model.type === 'sphere'
+          ? createSphere(model.color)
+          : model.type === 'character'
+          ? this.character
+          : createBox(model.color)
 
-      const cube = new THREE.Mesh(geometry, material)
-      cube.scale.set(scale.x, scale.y, scale.z)
+      mesh.scale.set(scale.x, scale.y, scale.z)
 
-      this.scene.add(cube)
+      this.scene.add(mesh)
 
-      entity.addComponent(ThreeMeshStateComponent, { mesh: cube })
+      entity.addComponent(ThreeMeshStateComponent, { mesh })
     })
 
     this.queries.initialised.results.forEach((entity) => {
@@ -73,6 +98,20 @@ export default class RenderingSystem extends System {
 
     this.renderer.render(this.scene, this.camera)
   }
+}
+
+const createBox = (color: string) => {
+  const geometry = new THREE.BoxGeometry()
+  const material = new THREE.MeshStandardMaterial({ color })
+  const mesh = new THREE.Mesh(geometry, material)
+  return mesh
+}
+
+const createSphere = (color: string) => {
+  const geometry = new THREE.SphereBufferGeometry()
+  const material = new THREE.MeshStandardMaterial({ color })
+  const mesh = new THREE.Mesh(geometry, material)
+  return mesh
 }
 
 RenderingSystem.queries = {
