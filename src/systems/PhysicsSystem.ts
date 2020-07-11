@@ -50,8 +50,8 @@ export class PhysicsSystem extends System {
         rigidBody.type === 'sphere'
           ? new Ammo.btSphereShape(scale.x * 0.5)
           : new Ammo.btBoxShape(new Ammo.btVector3(scale.x * 0.5, scale.y * 0.5, scale.z * 0.5))
-      // https://gamedev.stackexchange.com/questions/113774/why-do-physics-engines-use-collision-margins
 
+      // https://gamedev.stackexchange.com/questions/113774/why-do-physics-engines-use-collision-margins
       colShape.setMargin(0.05)
 
       const localInertia = new Ammo.btVector3(0, 0, 0)
@@ -59,6 +59,7 @@ export class PhysicsSystem extends System {
 
       const rbInfo = new Ammo.btRigidBodyConstructionInfo(rigidBody.mass, motionState, colShape, localInertia)
       const ammoRigidBody = new Ammo.btRigidBody(rbInfo)
+      ammoRigidBody.setRestitution(0.5)
 
       this.physicsWorld.addRigidBody(ammoRigidBody)
 
@@ -70,7 +71,6 @@ export class PhysicsSystem extends System {
       const position = entity.getComponent(PositionComponent)
       const rigidBody = entity.getComponent(AmmoRigidBodyStateComponent)
       const bodyVelocity = rigidBody.rigidBody.getLinearVelocity()
-      const angularVelocity = rigidBody.rigidBody.getAngularVelocity()
 
       const movementImpulse = new Ammo.btVector3(
         bodyVelocity.x() + velocity.x,
@@ -79,7 +79,6 @@ export class PhysicsSystem extends System {
       )
 
       const jumpImpulse = new Ammo.btVector3(0, velocity.y, 0)
-      const currentPosition = new Ammo.btVector3(position.x, position.y, position.z)
 
       rigidBody.rigidBody.setLinearVelocity(movementImpulse)
       rigidBody.rigidBody.applyCentralImpulse(jumpImpulse)
