@@ -46,7 +46,9 @@ export default class RenderingSystem extends System {
     const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
     // shadowLight.shadowCameraFov = 200
     shadowLight.castShadow = true
-    shadowLight.position.set(0, 50, 0)
+    shadowLight.position.set(0, 20, 0)
+    shadowLight.shadowCameraTop = 60
+
     scene.add(shadowLight)
     scene.add(shadowLight.target)
 
