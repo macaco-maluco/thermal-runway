@@ -19,11 +19,3 @@ ScoringSystem.queries = {
     components: [PositionComponent, PlayerTagComponent, ScoreComponent],
   },
 }
-
-interface Controller {
-  up: boolean
-  down: boolean
-  left: boolean
-  right: boolean
-  jump: boolean
-}
