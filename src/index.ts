@@ -14,9 +14,20 @@ world.registerComponent(PositionComponent)
 world.registerComponent(ModelComponent)
 world.registerComponent(ThreeMeshStateComponent)
 
-const cube = world.createEntity()
-cube.addComponent(PositionComponent, { x: 0, y: 0 })
-cube.addComponent(ModelComponent, { color: 'red' })
+world
+  .createEntity()
+  .addComponent(PositionComponent, { x: 0, y: 0, z: 0 })
+  .addComponent(ModelComponent, { color: 'red' })
+
+world
+  .createEntity()
+  .addComponent(PositionComponent, { x: 0, y: 1.5, z: 0 })
+  .addComponent(ModelComponent, { color: 'blue' })
+
+world
+  .createEntity()
+  .addComponent(PositionComponent, { x: 0, y: -1.5, z: 0 })
+  .addComponent(ModelComponent, { color: 'green' })
 
 let lastTime = performance.now()
 

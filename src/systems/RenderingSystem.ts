@@ -53,6 +53,7 @@ export default class RenderingSystem extends System {
       const position = entity.getComponent(PositionComponent)
       mesh.position.x = position.x
       mesh.position.y = position.y
+      mesh.position.z = position.z
     })
 
     this.renderer.render(this.scene, this.camera)
