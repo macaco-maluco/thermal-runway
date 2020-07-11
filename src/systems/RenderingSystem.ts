@@ -92,6 +92,14 @@ export default class RenderingSystem extends System {
   execute(delta, time) {
     if (!this.character) return
 
+    this.queries.removed.removed.forEach((entity) => {
+      const mesh = entity.getComponent(ThreeMeshStateComponent)
+      if (mesh) {
+        this.scene.remove(mesh.mesh)
+      }
+      entity.removeComponent(ThreeMeshStateComponent)
+    })
+
     this.queries.uninitialised.results.forEach((entity) => {
       const model = entity.getComponent(ModelComponent)
       const scale = entity.getComponent(ScaleComponent)
@@ -166,6 +174,13 @@ RenderingSystem.queries = {
 
   initialised: {
     components: [PositionComponent, ThreeMeshStateComponent],
+  },
+
+  removed: {
+    components: [ModelComponent],
+    listen: {
+      removed: true,
+    },
   },
 
   cameraTracker: {

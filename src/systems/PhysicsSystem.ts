@@ -35,6 +35,12 @@ export class PhysicsSystem extends System {
   execute(delta, time) {
     if (!this.physicsWorld) return
 
+    this.queries.removed.removed.forEach((entity) => {
+      const rigidBody = entity.getComponent(AmmoRigidBodyStateComponent)
+      this.physicsWorld.removeRigidBody(rigidBody.rigidBody)
+      entity.removeComponent(AmmoRigidBodyStateComponent)
+    })
+
     this.queries.uninitialised.results.forEach((entity) => {
       const rigidBody = entity.getComponent(RigidBodyComponent)
       const position = entity.getComponent(PositionComponent)
@@ -70,7 +76,6 @@ export class PhysicsSystem extends System {
 
     this.queries.motion.results.forEach((entity) => {
       const velocity = entity.getComponent(VelocityComponent)
-      const position = entity.getComponent(PositionComponent)
       const rigidBody = entity.getComponent(AmmoRigidBodyStateComponent)
       const bodyVelocity = rigidBody.rigidBody.getLinearVelocity()
 
@@ -132,6 +137,13 @@ PhysicsSystem.queries = {
 
   initialised: {
     components: [AmmoRigidBodyStateComponent],
+  },
+
+  removed: {
+    components: [RigidBodyComponent],
+    listen: {
+      removed: true,
+    },
   },
 
   motion: {

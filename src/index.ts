@@ -18,6 +18,7 @@ import PlayerTagComponent from './tags/PlayerTagComponent'
 import PlayerViewSystem from './systems/PlayerViewSystem'
 import PlayerViewTagComponent from './tags/PlayerViewTagComponent'
 import GameOverSystem from './systems/GameOverSystem'
+import NewGameSystem from './systems/NewGameSystem'
 
 const world = new World()
 
@@ -33,6 +34,8 @@ world.registerComponent(AmmoRigidBodyStateComponent)
 world.registerComponent(PlayerTagComponent)
 world.registerComponent(PlayerViewTagComponent)
 
+world.registerSystem(NewGameSystem)
+world.registerSystem(GameOverSystem)
 world.registerSystem(PlatformCreationSystem)
 world.registerSystem(KeyboardSystem)
 world.registerSystem(GamepadSystem)
@@ -40,19 +43,6 @@ world.registerSystem(PlayerMovementSystem)
 world.registerSystem(PhysicsSystem)
 world.registerSystem(PlayerViewSystem)
 world.registerSystem(RenderingSystem)
-world.registerSystem(GameOverSystem)
-
-// Player physics body
-world
-  .createEntity()
-  .addComponent(PositionComponent, { y: 2 })
-  // .addComponent(ModelComponent, { color: 'red', type: 'sphere' })
-  .addComponent(ScaleComponent, { x: 0.6, y: 0.6, z: 0.6 })
-  .addComponent(KeyboardControllerComponent)
-  .addComponent(GamepadControllerComponent)
-  .addComponent(VelocityComponent)
-  .addComponent(RigidBodyComponent, { mass: 1, type: 'sphere' })
-  .addComponent(PlayerTagComponent)
 
 let lastTime = performance.now()
 

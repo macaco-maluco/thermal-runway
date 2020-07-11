@@ -12,6 +12,7 @@ export default class PlayerViewSystem extends System {
   playerScale: ScaleComponent
   playerDirection = 0
   playerViewScale = 0.05
+  playerRemoved = false
 
   execute() {
     // When a new player component is added,
@@ -37,7 +38,17 @@ export default class PlayerViewSystem extends System {
       this.playerDirection = vector.angle() + 90 * (Math.PI / 180)
     })
 
+    this.queries.playerRigidBody.removed.forEach((entity) => {
+      this.playerRemoved = true
+    })
+
     this.queries.playerView.results.forEach((entity) => {
+      if (this.playerRemoved) {
+        this.playerRemoved = false
+        entity.remove()
+        return
+      }
+
       const playerViewPosition = entity.getMutableComponent(PositionComponent)
       playerViewPosition.x = this.playerPosition.x
       playerViewPosition.y = this.playerPosition.y - this.playerScale.x / 2 + 0.2
@@ -54,6 +65,7 @@ PlayerViewSystem.queries = {
     listen: {
       added: true,
       changed: true,
+      removed: true,
     },
   },
 
