@@ -22,7 +22,7 @@ export class PlayerMovementSystem extends System {
       const position = entity.getMutableComponent(PositionComponent)
       const forwardSpeed = 15 // could be its own component (like player attributes)
       const breakSpeed = 2
-      const turnSpeed = 0.35
+      const turnSpeed = 8
       const jumpPower = 2
       const boostSpeed = 40
 
