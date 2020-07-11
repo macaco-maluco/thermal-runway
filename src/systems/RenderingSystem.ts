@@ -6,7 +6,7 @@ import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 import ScaleComponent from '../components/ScaleComponent'
-import ControllerComponent from '../components/ControllerComponent'
+import PlayerTagComponent from '../tags/PlayerTagComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -22,6 +22,7 @@ export default class RenderingSystem extends System {
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(0xc5c5c3)
+    renderer.shadowMapEnabled = true
 
     document.body.appendChild(renderer.domElement)
 
@@ -48,6 +49,7 @@ export default class RenderingSystem extends System {
       object.scale.x = 0.005
       object.scale.y = 0.005
       object.scale.z = 0.005
+      object.castShadow = true
 
       const group = new THREE.Group()
       group.add(object)
@@ -110,6 +112,7 @@ const createBox = (color: string) => {
   const geometry = new THREE.BoxGeometry()
   const material = new THREE.MeshStandardMaterial({ color })
   const mesh = new THREE.Mesh(geometry, material)
+  mesh.receiveShadow = true
   return mesh
 }
 
@@ -117,6 +120,7 @@ const createSphere = (color: string) => {
   const geometry = new THREE.SphereBufferGeometry()
   const material = new THREE.MeshStandardMaterial({ color })
   const mesh = new THREE.Mesh(geometry, material)
+  mesh.castShadow = true
   return mesh
 }
 
@@ -130,7 +134,7 @@ RenderingSystem.queries = {
   },
 
   cameraTracker: {
-    components: [ControllerComponent, PositionComponent],
+    components: [PlayerTagComponent, PositionComponent],
   },
 }
 
@@ -138,7 +142,8 @@ function createLights() {
   // const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9)
 
   const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
-  shadowLight.position.set(150, 350, 350)
+  shadowLight.castShadow = true
+  shadowLight.position.set(0, 50, 0)
 
   const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
 

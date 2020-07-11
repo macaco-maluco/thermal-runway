@@ -1,26 +1,27 @@
 import { System, Not } from 'ecsy'
-import ControllerComponent from '../components/ControllerComponent'
+import GamepadControllerComponent from '../components/GamepadControllerComponent'
 
-export class GamepadSystem extends System {
+export default class GamepadSystem extends System {
   execute(delta, time) {
     const gamepads = navigator.getGamepads()
-    const gamepad = gamepads[0]
-
-    if (!gamepad) return
 
     this.queries.controllers.results.forEach((entity) => {
-      const controller = entity.getMutableComponent(ControllerComponent)
+      const controller = entity.getMutableComponent(GamepadControllerComponent)
+
+      const gamepad = gamepads[0]
+      if (gamepad === null) return
 
       controller.up = gamepad.buttons[12].pressed
       controller.down = gamepad.buttons[13].pressed
       controller.left = gamepad.buttons[14].pressed
       controller.right = gamepad.buttons[15].pressed
+      controller.jump = gamepad.buttons[0].pressed
     })
   }
 }
 
 GamepadSystem.queries = {
   controllers: {
-    components: [ControllerComponent],
+    components: [GamepadControllerComponent],
   },
 }

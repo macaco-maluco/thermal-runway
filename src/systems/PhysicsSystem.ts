@@ -5,7 +5,7 @@ import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateCom
 import PositionComponent from '../components/PositionComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import VelocityComponent from '../components/VelocityComponent'
-import ControllerComponent from '../components/ControllerComponent'
+import PlayerTagComponent from '../tags/PlayerTagComponent'
 
 export class PhysicsSystem extends System {
   physicsWorld: Ammo.btDiscreteDynamicsWorld
@@ -59,6 +59,8 @@ export class PhysicsSystem extends System {
 
       const rbInfo = new Ammo.btRigidBodyConstructionInfo(rigidBody.mass, motionState, colShape, localInertia)
       const ammoRigidBody = new Ammo.btRigidBody(rbInfo)
+
+      ammoRigidBody.setActivationState(4)
       ammoRigidBody.setRestitution(0.5)
 
       this.physicsWorld.addRigidBody(ammoRigidBody)
@@ -134,6 +136,6 @@ PhysicsSystem.queries = {
   },
 
   jumpable: {
-    components: [PositionComponent, ControllerComponent, ScaleComponent],
+    components: [PositionComponent, PlayerTagComponent, ScaleComponent],
   },
 }

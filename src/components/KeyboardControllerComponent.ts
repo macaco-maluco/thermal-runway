@@ -1,6 +1,6 @@
 import { Component, Types } from 'ecsy'
 
-interface Controller {
+interface KeyboardController {
   up: boolean
   down: boolean
   left: boolean
@@ -8,7 +8,7 @@ interface Controller {
   jump: boolean
 }
 
-export default class ControllerComponent extends Component<Controller> implements Controller {
+export default class KeyboardControllerComponent extends Component<KeyboardController> implements KeyboardController {
   up: boolean
   down: boolean
   left: boolean
@@ -16,7 +16,7 @@ export default class ControllerComponent extends Component<Controller> implement
   jump: boolean
 }
 
-ControllerComponent.schema = {
+KeyboardControllerComponent.schema = {
   up: { type: Types.Boolean },
   down: { type: Types.Boolean },
   left: { type: Types.Boolean },

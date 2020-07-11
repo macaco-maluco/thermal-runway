@@ -3,12 +3,12 @@ import { Component, Types } from 'ecsy'
 type ModelType = 'box' | 'sphere' | 'character'
 
 interface Model {
-  color: string
+  color?: string
   type: ModelType
 }
 
 export default class ModelComponent extends Component<Model> implements Model {
-  color: string
+  color: string = 'red'
   type: ModelType
 }
 

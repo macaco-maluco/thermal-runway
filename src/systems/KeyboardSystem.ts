@@ -1,5 +1,5 @@
 import { System, Not } from 'ecsy'
-import ControllerComponent from '../components/ControllerComponent'
+import KeyboardControllerComponent from '../components/KeyboardControllerComponent'
 
 export class KeyboardSystem extends System {
   arrowUp: boolean
@@ -65,7 +65,7 @@ export class KeyboardSystem extends System {
 
   execute(delta, time) {
     this.queries.controllers.results.forEach((entity) => {
-      const controller = entity.getMutableComponent(ControllerComponent)
+      const controller = entity.getMutableComponent(KeyboardControllerComponent)
 
       controller.up = this.arrowUp
       controller.down = this.arrowDown
@@ -78,6 +78,6 @@ export class KeyboardSystem extends System {
 
 KeyboardSystem.queries = {
   controllers: {
-    components: [ControllerComponent],
+    components: [KeyboardControllerComponent],
   },
 }
