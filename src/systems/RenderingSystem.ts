@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { System, Not } from 'ecsy'
 import PositionComponent from '../components/PositionComponent'
@@ -52,12 +52,12 @@ export default class RenderingSystem extends System {
     const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
     scene.add(ambientLight)
 
-    const loader = new FBXLoader()
+    const loader = new OBJLoader()
 
-    loader.load('character.fbx', (characterObject) => {
-      characterObject.scale.x = 0.003
-      characterObject.scale.y = 0.003
-      characterObject.scale.z = 0.003
+    loader.load('spaceCraft4.obj', (characterObject) => {
+      characterObject.scale.x = 1
+      characterObject.scale.y = 1
+      characterObject.scale.z = 1
 
       characterObject.traverse((o) => {
         o.castShadow = true

@@ -11,7 +11,7 @@ export default class PlayerViewSystem extends System {
   playerPosition: PositionComponent
   playerScale: ScaleComponent
   playerDirection = 0
-  playerViewScale = 2
+  playerViewScale = 0.05
 
   execute() {
     // When a new player component is added,
@@ -34,13 +34,13 @@ export default class PlayerViewSystem extends System {
 
       const vector = new THREE.Vector2(velocity.x(), velocity.z())
 
-      this.playerDirection = vector.angle() - 90 * (Math.PI / 180)
+      this.playerDirection = vector.angle() + 90 * (Math.PI / 180)
     })
 
     this.queries.playerView.results.forEach((entity) => {
       const playerViewPosition = entity.getMutableComponent(PositionComponent)
       playerViewPosition.x = this.playerPosition.x
-      playerViewPosition.y = this.playerPosition.y - this.playerScale.x / 2
+      playerViewPosition.y = this.playerPosition.y - this.playerScale.x / 2 + 0.2
       playerViewPosition.z = this.playerPosition.z
 
       playerViewPosition.rotationY = this.playerDirection * -1
