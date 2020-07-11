@@ -44,7 +44,7 @@ world.registerSystem(RenderingSystem)
 world
   .createEntity()
   .addComponent(PositionComponent, { y: 2 })
-  .addComponent(ModelComponent, { color: 'red', type: 'sphere' })
+  // .addComponent(ModelComponent, { color: 'red', type: 'sphere' })
   .addComponent(ScaleComponent, { x: 0.5, y: 0.5, z: 0.5 })
   .addComponent(KeyboardControllerComponent)
   .addComponent(GamepadControllerComponent)

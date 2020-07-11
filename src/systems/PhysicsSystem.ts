@@ -1,4 +1,5 @@
 import { System, Not } from 'ecsy'
+import * as THREE from 'three'
 import Ammo from 'ammojs-typed'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
@@ -6,6 +7,7 @@ import PositionComponent from '../components/PositionComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import VelocityComponent from '../components/VelocityComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
+import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 
 export class PhysicsSystem extends System {
   physicsWorld: Ammo.btDiscreteDynamicsWorld
@@ -41,9 +43,7 @@ export class PhysicsSystem extends System {
       const transform = new Ammo.btTransform()
       transform.setIdentity()
       transform.setOrigin(new Ammo.btVector3(position.x, position.y, position.z))
-      transform.setRotation(
-        new Ammo.btQuaternion(position.rotationX, position.rotationY, position.rotationZ, position.rotationW),
-      )
+      transform.setRotation(new Ammo.btQuaternion(0, 0, 0, 1))
       const motionState = new Ammo.btDefaultMotionState(transform)
 
       const colShape =
@@ -103,10 +103,13 @@ export class PhysicsSystem extends System {
         position.x = p.x()
         position.y = p.y()
         position.z = p.z()
-        position.rotationX = q.x()
-        position.rotationY = q.y()
-        position.rotationZ = q.z()
-        position.rotationW = q.w()
+
+        const euler = new THREE.Euler()
+        euler.setFromQuaternion(new THREE.Quaternion(q.x(), q.y(), q.z(), q.w()))
+
+        position.rotationX = euler.x
+        position.rotationY = euler.y
+        position.rotationZ = euler.z
       }
     })
 

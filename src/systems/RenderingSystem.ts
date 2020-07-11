@@ -57,7 +57,10 @@ export default class RenderingSystem extends System {
       object.scale.x = 0.005
       object.scale.y = 0.005
       object.scale.z = 0.005
-      object.castShadow = true
+
+      object.traverse((o) => {
+        o.castShadow = true
+      })
 
       const group = new THREE.Group()
       group.add(object)
@@ -105,7 +108,9 @@ export default class RenderingSystem extends System {
       mesh.position.y = position.y
       mesh.position.z = position.z
 
-      mesh.quaternion.set(position.rotationX, position.rotationY, position.rotationZ, position.rotationW)
+      mesh.rotation.x = position.rotationX
+      mesh.rotation.y = position.rotationY
+      mesh.rotation.z = position.rotationZ
     })
 
     this.queries.cameraTracker.results.forEach((entity) => {

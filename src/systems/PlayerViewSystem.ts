@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { System } from 'ecsy'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
 import PlayerViewTagComponent from '../tags/PlayerViewTagComponent'
@@ -9,7 +10,7 @@ import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateCom
 export default class PlayerViewSystem extends System {
   playerPosition: PositionComponent
   playerScale: ScaleComponent
-  playerDirection: { x?: number; y?: number; z?: number } = {}
+  playerDirection: number = 0
 
   execute() {
     // When a new player component is added,
@@ -27,8 +28,12 @@ export default class PlayerViewSystem extends System {
       this.playerPosition = entity.getComponent(PositionComponent)
       this.playerScale = entity.getComponent(ScaleComponent)
 
-      // const {rigidBody} = entity.getComponent(AmmoRigidBodyStateComponent)
-      // const velocity = rigidBody.getLinearVelocity()
+      const { rigidBody } = entity.getComponent(AmmoRigidBodyStateComponent)
+      const velocity = rigidBody.getLinearVelocity()
+
+      const vector = new THREE.Vector2(velocity.x(), velocity.z())
+
+      this.playerDirection = vector.angle() - 90 * (Math.PI / 180)
     })
 
     this.queries.playerView.results.forEach((entity) => {
@@ -36,6 +41,8 @@ export default class PlayerViewSystem extends System {
       playerViewPosition.x = this.playerPosition.x
       playerViewPosition.y = this.playerPosition.y - this.playerScale.x / 2
       playerViewPosition.z = this.playerPosition.z
+
+      playerViewPosition.rotationY = this.playerDirection * -1
     })
   }
 }
