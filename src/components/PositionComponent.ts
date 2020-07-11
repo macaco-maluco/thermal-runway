@@ -4,16 +4,26 @@ interface Position {
   x: number
   y: number
   z: number
+
+  rotationX: number
+  rotationY: number
+  rotationZ: number
 }
 
 export default class PositionComponent extends Component<Position> implements Position {
-  x = 0
-  y = 0
-  z = 0
+  x: number
+  y: number
+  z: number
+  rotationX: number
+  rotationY: number
+  rotationZ: number
 }
 
 PositionComponent.schema = {
   x: { type: Types.Number },
   y: { type: Types.Number },
   z: { type: Types.Number },
+  rotationX: { type: Types.Number },
+  rotationY: { type: Types.Number },
+  rotationZ: { type: Types.Number },
 }

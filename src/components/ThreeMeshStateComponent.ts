@@ -1,4 +1,5 @@
 import { SystemStateComponent, Types } from 'ecsy'
+import * as THREE from 'three'
 
 interface ThreeMeshState {
   mesh: THREE.Mesh

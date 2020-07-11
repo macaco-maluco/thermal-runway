@@ -16,6 +16,7 @@
     "last 1 chrome versions"
   ],
   "dependencies": {
+    "ammojs-typed": "^1.0.4",
     "ecsy": "^0.3.1",
     "three": "^0.118.3"
   }

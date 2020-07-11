@@ -835,6 +835,10 @@ alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
 
+ammojs-typed@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/ammojs-typed/-/ammojs-typed-1.0.4.tgz#d2ca924947350a046d35fbc6285538e203b1bb7a"
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
@@ -1771,7 +1775,6 @@ ecc-jsbn@~0.1.1:
 ecsy@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/ecsy/-/ecsy-0.3.1.tgz#db6025533de03c05b8a707959e719f396ec20aa8"
-  integrity sha512-KbNKb7Oxml4M/bCM8dkMedi8+LBdJuljNS7duaZWElg4k5qsubuLfAo9n9rXjBHpZTjie+KkKVm2Uw8v5Li/Qg==
 
 ee-first@1.1.1:
   version "1.1.1"
