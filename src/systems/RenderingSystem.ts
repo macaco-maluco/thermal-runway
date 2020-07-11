@@ -44,6 +44,7 @@ export default class RenderingSystem extends System {
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
     const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
+    // shadowLight.shadowCameraFov = 200
     shadowLight.castShadow = true
     shadowLight.position.set(0, 50, 0)
     scene.add(shadowLight)
@@ -72,6 +73,13 @@ export default class RenderingSystem extends System {
     // const controls = new OrbitControls(camera, renderer.domElement)
     // controls.target.set(0, 100, 0)
     // controls.update()
+
+    const geometry = new THREE.BoxGeometry(10000, 2, 10000)
+    const material = new THREE.MeshStandardMaterial({ color: '#333' })
+    const mesh = new THREE.Mesh(geometry, material)
+    mesh.position.y = -4
+    mesh.receiveShadow = true
+    scene.add(mesh)
 
     this.scene = scene
     this.renderer = renderer
@@ -120,7 +128,7 @@ export default class RenderingSystem extends System {
       this.camera.lookAt(0, position.y, position.z)
 
       this.shadowLight.position.x = position.x
-      this.shadowLight.position.y = position.y + 10
+      this.shadowLight.position.y = position.y + 100
       this.shadowLight.position.z = position.z
 
       this.shadowLight.target.position.x = position.x
@@ -137,6 +145,7 @@ const createBox = (color: string) => {
   const material = new THREE.MeshStandardMaterial({ color })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = true
+  mesh.castShadow = true
   return mesh
 }
 
