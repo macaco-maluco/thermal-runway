@@ -5,6 +5,7 @@ import ModelComponent from '../components/ModelComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import PlatformTagComponent from '../tags/PlatformTagComponent'
+import { PLATFORM_COLOR } from '../palette'
 
 const levels = [
   // {
@@ -85,7 +86,8 @@ export const createPlatform = (world: World, positionZ: number) => {
   const padding = getRandom(currentLevel.padding)
   const stickWidth = platformDepth / 10
 
-  const platformColor = Color('purple').darken(sturdiness).hex()
+  // const platformColor = Color('purple').darken(sturdiness).hex()
+  const platformColor = PLATFORM_COLOR
 
   const positionY = -0.5
 

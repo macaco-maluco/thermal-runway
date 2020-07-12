@@ -9,6 +9,7 @@ import PlayerTagComponent from '../tags/PlayerTagComponent'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { ModelMap, loadAssets } from '../assets'
 import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
+import { SURFACE_COLOR, PLAYER_LIGHT_COLOR, AMBIENT_LIGHT_COLOR, BACKGROUND_COLOR } from '../palette'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -24,7 +25,7 @@ export default class RenderingSystem extends System {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setClearColor(0x191f53)
+    renderer.setClearColor(BACKGROUND_COLOR)
     renderer.shadowMapEnabled = true
 
     document.getElementById('canvas').appendChild(renderer.domElement)
@@ -45,7 +46,7 @@ export default class RenderingSystem extends System {
     camera.position.z = 7
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-    const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9)
+    const shadowLight = new THREE.DirectionalLight(PLAYER_LIGHT_COLOR, 0.9)
     // shadowLight.shadowCameraFov = 200
     shadowLight.castShadow = true
     shadowLight.position.set(0, 20, 0)
@@ -54,7 +55,7 @@ export default class RenderingSystem extends System {
     scene.add(shadowLight)
     scene.add(shadowLight.target)
 
-    const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
+    const ambientLight = new THREE.AmbientLight(AMBIENT_LIGHT_COLOR, 0.5)
     scene.add(ambientLight)
 
     const objLoader = new OBJLoader()
@@ -169,7 +170,7 @@ function createSurface(worldWidth = 50, worldLength = 1000) {
   }
 
   const material = new THREE.MeshPhongMaterial({
-    color: 0x25184e,
+    color: SURFACE_COLOR,
     flatShading: true,
   })
 
