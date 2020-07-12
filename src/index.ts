@@ -23,6 +23,7 @@ import ScoringSystem from './systems/ScoringSystem'
 import NewGameSystem from './systems/NewGameSystem'
 import UISystem from './systems/UISystem'
 import PlatformTagComponent from './tags/PlatformTagComponent'
+import GameStateComponent from './components/GameStateComponent'
 
 const world = new World()
 
@@ -39,6 +40,7 @@ world.registerComponent(PlayerTagComponent)
 world.registerComponent(PlayerViewTagComponent)
 world.registerComponent(ScoreComponent)
 world.registerComponent(PlatformTagComponent)
+world.registerComponent(GameStateComponent)
 
 world.registerSystem(NewGameSystem)
 world.registerSystem(GameOverSystem)
@@ -51,6 +53,13 @@ world.registerSystem(PlayerViewSystem)
 world.registerSystem(RenderingSystem)
 world.registerSystem(UISystem)
 world.registerSystem(ScoringSystem)
+
+// Game state entity
+world
+  .createEntity()
+  .addComponent(GameStateComponent)
+  .addComponent(KeyboardControllerComponent)
+  .addComponent(GamepadControllerComponent)
 
 let lastTime = performance.now()
 

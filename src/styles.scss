@@ -1,0 +1,49 @@
+$header-font: 'Trade Winds', cursive;
+$body-font: 'Kulim Park', sans-serif, cursive;
+
+body,
+html {
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  font-family: $body-font;
+}
+
+#canvas,
+#ui {
+  @extend .full-screen;
+}
+
+#ui {
+  // font-family: monospace;
+  // font-size: 10vh;
+  // color: white;
+  // padding: 1vh 4vh;
+  z-index: 1;
+}
+
+.full-screen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  transform: translateY(-100%);
+}
+
+#main-menu {
+  @extend .full-screen;
+
+  background: rgba(0, 0, 0, 0.2);
+  .game-title {
+    font-family: $header-font;
+    font-size: 4rem;
+    color: white;
+  }
+}

@@ -3,14 +3,23 @@ import GamepadControllerComponent from '../components/GamepadControllerComponent
 import KeyboardControllerComponent from '../components/KeyboardControllerComponent'
 import VelocityComponent from '../components/VelocityComponent'
 import PositionComponent from '../components/PositionComponent'
+import GameStateComponent from '../components/GameStateComponent'
 
 export class PlayerMovementSystem extends System {
+  playing = false
   execute() {
+    this.queries.gameState.changed.forEach((entity) => {
+      const state = entity.getComponent(GameStateComponent)
+      if (state.screen == 'game') {
+        this.playing = true
+      }
+    })
+
     this.queries.players.results.forEach((entity) => {
+      if (!this.playing) return
+
       const keyboard = entity.getComponent(KeyboardControllerComponent)
       const gamepad = entity.getComponent(GamepadControllerComponent)
-
-      if (!gamepad.started && !keyboard.started) return
 
       const boost = keyboard.boost || gamepad.boost
       const left = keyboard.left || gamepad.left
@@ -37,6 +46,13 @@ export class PlayerMovementSystem extends System {
 PlayerMovementSystem.queries = {
   players: {
     components: [KeyboardControllerComponent, GamepadControllerComponent, PositionComponent, VelocityComponent],
+  },
+
+  gameState: {
+    components: [GameStateComponent],
+    listen: {
+      changed: true,
+    },
   },
 }
 
