@@ -7,14 +7,12 @@ import VelocityComponent from '../components/VelocityComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
 import ScoreComponent from '../components/ScoreComponent'
-import GravityComponent from '../components/GravityComponent'
 
 export const createPlayerBody = (world: World) => {
   // Player physics body
   const entity = world
     .createEntity()
     .addComponent(PositionComponent, { y: 2 })
-    // .addComponent(ModelComponent, { color: 'red', type: 'sphere' })
     .addComponent(ScaleComponent, { x: 0.6, y: 0.6, z: 0.6 })
     .addComponent(KeyboardControllerComponent)
     .addComponent(GamepadControllerComponent)
@@ -22,5 +20,4 @@ export const createPlayerBody = (world: World) => {
     .addComponent(RigidBodyComponent, { mass: 2, type: 'sphere' })
     .addComponent(PlayerTagComponent)
     .addComponent(ScoreComponent)
-    .addComponent(GravityComponent, { x: 0, y: -40, z: 0 })
 }

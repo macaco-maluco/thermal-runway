@@ -7,7 +7,6 @@ import PositionComponent from '../components/PositionComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import VelocityComponent from '../components/VelocityComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
-import GravityComponent from '../components/GravityComponent'
 
 export class PhysicsSystem extends System {
   physicsWorld: Ammo.btDiscreteDynamicsWorld
@@ -26,7 +25,7 @@ export class PhysicsSystem extends System {
         collisionConfiguration,
       )
 
-      physicsWorld.setGravity(new Ammo.btVector3(0, 0, 0))
+      physicsWorld.setGravity(new Ammo.btVector3(0, -40, 0))
 
       this.physicsWorld = physicsWorld
     })
@@ -96,8 +95,6 @@ export class PhysicsSystem extends System {
       rigidBody.rigidBody.applyCentralImpulse(jumpImpulse)
     })
 
-    this.physicsWorld.stepSimulation(delta, 1)
-
     const tmpTrans = new Ammo.btTransform()
 
     this.queries.initialised.results.forEach((entity) => {
@@ -133,15 +130,7 @@ export class PhysicsSystem extends System {
       position.grounded = res.hasHit()
     })
 
-    this.queries.gravity.added.forEach((entity) => {
-      const gravity = entity.getComponent(GravityComponent)
-      this.physicsWorld.setGravity(new Ammo.btVector3(gravity.x, gravity.y, gravity.z))
-    })
-
-    this.queries.gravity.changed.forEach((entity) => {
-      const gravity = entity.getComponent(GravityComponent)
-      this.physicsWorld.setGravity(new Ammo.btVector3(gravity.x, gravity.y, gravity.z))
-    })
+    this.physicsWorld.stepSimulation(delta, 1)
   }
 }
 
@@ -167,13 +156,5 @@ PhysicsSystem.queries = {
 
   jumpable: {
     components: [PositionComponent, PlayerTagComponent, ScaleComponent],
-  },
-
-  gravity: {
-    components: [GravityComponent],
-    listen: {
-      added: true,
-      changed: true,
-    },
   },
 }
