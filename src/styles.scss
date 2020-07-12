@@ -56,81 +56,27 @@ html {
 #main-menu {
   @extend .full-screen;
   transition: background-color 150ms ease-out;
-  background-color: rgba(20, 2, 24, 0.8);
+  background-color: rgba(20, 2, 24, 0.4);
   flex-direction: column;
 
-  .game-title {
-    animation: swing 20s infinite ease-in-out;
-    font-family: $header-font;
-    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms ease-in;
-    transform: scale(1);
-    opacity: 1;
-    font-size: 7vw;
-    color: rgba(20, 2, 24, 1);
-    $shadow-color: $yellow;
-    text-shadow: 3px 3px 0 $shadow-color, -1px -1px 0 $shadow-color, 1px -1px 0 $shadow-color, -1px 1px 0 $shadow-color,
-      1px 1px 0 $shadow-color;
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-    transform: rotate(-5deg);
-
-    span {
-      margin-left: 7rem;
-    }
+  .keyboard-controls {
+    position: absolute;
+    bottom: 100px;
+    right: 40px;
   }
 
-  .keyboard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    left: 5rem;
-    transform: scale(0.6);
-    transition: transform 150ms ease-out, opacity 150ms ease-out;
-    opacity: 0.9;
-
-    .movement {
-      background: url('../static/move-wasd.png');
-      width: 306px;
-      height: 173px;
-    }
-
-    .jump {
-      background: url('../static/jump-space.png');
-      width: 364px;
-      height: 90px;
-    }
-
-    .boost {
-      background: url('../static/boost-shift.png');
-      width: 172px;
-      height: 90px;
-    }
+  .gamepad-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
   }
 
-  .start {
-    font-size: 2rem;
-    opacity: 1;
-    transition: opacity 150ms linear;
+  .logo {
+    margin-top: -180px;
   }
 
   &.hide {
     background-color: rgba(20, 2, 24, 0);
-
-    .game-title {
-      transform: scale(0.5);
-      opacity: 0;
-    }
-
-    .start {
-      opacity: 0;
-    }
-
-    .keyboard {
-      transform: scale(0);
-      opacity: 0;
-    }
   }
 }
 
