@@ -8,6 +8,7 @@ import ScaleComponent from '../components/ScaleComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { ModelMap, loadAssets } from '../assets'
+import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -71,7 +72,7 @@ export default class RenderingSystem extends System {
     this.shadowLight = shadowLight
   }
 
-  execute(delta, time) {
+  execute() {
     if (!this.models) return
 
     this.queries.removed.removed.forEach((entity) => {
@@ -114,9 +115,14 @@ export default class RenderingSystem extends System {
 
     this.queries.cameraTracker.results.forEach((entity) => {
       const position = entity.getComponent(PositionComponent)
+      const { rigidBody } = entity.getComponent(AmmoRigidBodyStateComponent)
+
+      const velocity = Math.abs(rigidBody.getLinearVelocity().z())
+      const velocityFactor = velocity > 30 ? (velocity - 30) / 20 : 0
+
       this.camera.position.x = 0
-      this.camera.position.y = position.y + 5
-      this.camera.position.z = position.z + 6
+      this.camera.position.y = position.y + 3.5 + velocityFactor * 2.4
+      this.camera.position.z = position.z + 5 + velocityFactor * 4
       this.camera.lookAt(0, position.y, position.z)
 
       this.shadowLight.position.x = position.x
@@ -194,6 +200,6 @@ RenderingSystem.queries = {
   },
 
   cameraTracker: {
-    components: [PlayerTagComponent, PositionComponent],
+    components: [PlayerTagComponent, PositionComponent, AmmoRigidBodyStateComponent],
   },
 }
