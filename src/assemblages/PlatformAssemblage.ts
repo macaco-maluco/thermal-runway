@@ -75,7 +75,6 @@ function getLevelFromPosition(position: number) {
 export const createPlatform = (world: World, positionZ: number) => {
   const levelId = getLevelFromPosition(positionZ)
   const currentLevel = levels[levelId]
-  console.log('levelId', levelId)
 
   const stickHeight = 0.01
   const platformHeight = 2

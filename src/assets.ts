@@ -30,7 +30,6 @@ export const loadAssets = (
   }
 
   const [id, { model, material }] = currentAsset.value // idk why this doesn't type
-  console.log('Loading: ', model, material)
 
   mtlLoader.load(material, (loadedMaterial) => {
     objLoader.setMaterials(loadedMaterial).load(model, (loadedModel) => {
