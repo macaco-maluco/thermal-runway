@@ -11,9 +11,10 @@ const PLATFORM_DEPTH = 20
 const PLATFORM_WIDTH = 3
 const PADDING = 4
 
-export const createPlatform = (world: World, x: number, z: number) => {
+export const createPlatform = (world: World, positionZ: number) => {
   const sturdiness = Math.random()
   const platformColor = Color('purple').darken(sturdiness).hex()
+  const x = Math.random() * 6 - 3
 
   const stickHeight = 0.01
   const stickWidth = 2
@@ -21,7 +22,6 @@ export const createPlatform = (world: World, x: number, z: number) => {
   const platformWidth = PLATFORM_WIDTH
   const platformDepth = PLATFORM_DEPTH
 
-  const positionZ = -z * (PLATFORM_DEPTH + PADDING) - STARTING_SIZE + 5
   const positionY = -0.5
 
   // stick
@@ -41,6 +41,8 @@ export const createPlatform = (world: World, x: number, z: number) => {
     .addComponent(ScaleComponent, { y: platformHeight, x: platformWidth, z: platformDepth })
     .addComponent(RigidBodyComponent, { mass: 10 * sturdiness + 0.5, type: 'box' })
     .addComponent(PlatformTagComponent)
+
+  return positionZ - (PLATFORM_DEPTH + PADDING)
 }
 
 export const createStartingPlatform = (world: World) => {
@@ -50,4 +52,6 @@ export const createStartingPlatform = (world: World) => {
     .addComponent(ModelComponent, { type: 'box', color: 'blue' })
     .addComponent(ScaleComponent, { y: 0.1, x: 2, z: STARTING_SIZE })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
+
+  return -(STARTING_SIZE + PADDING + 10)
 }
