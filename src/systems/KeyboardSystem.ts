@@ -13,18 +13,22 @@ export class KeyboardSystem extends System {
     const handleDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowUp':
+        case 'w':
           event.preventDefault()
           this.arrowUp = true
           break
         case 'ArrowDown':
+        case 's':
           event.preventDefault()
           this.arrowDown = true
           break
         case 'ArrowLeft':
+        case 'a':
           event.preventDefault()
           this.arrowLeft = true
           break
         case 'ArrowRight':
+        case 'd':
           event.preventDefault()
           this.arrowRight = true
           break
@@ -42,18 +46,22 @@ export class KeyboardSystem extends System {
     const handleUp = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowUp':
+        case 'w':
           event.preventDefault()
           this.arrowUp = false
           break
         case 'ArrowDown':
+        case 's':
           event.preventDefault()
           this.arrowDown = false
           break
         case 'ArrowLeft':
+        case 'a':
           event.preventDefault()
           this.arrowLeft = false
           break
         case 'ArrowRight':
+        case 'd':
           event.preventDefault()
           this.arrowRight = false
           break

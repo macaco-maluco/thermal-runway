@@ -1,6 +1,6 @@
 import { Component, Types } from 'ecsy'
 
-export type Screen = 'main-menu' | 'game'
+export type Screen = 'main-menu' | 'game' | 'game-over'
 
 interface GameState {
   screen: Screen
