@@ -3,6 +3,7 @@ import PlayerTagComponent from '../tags/PlayerTagComponent'
 import PositionComponent from '../components/PositionComponent'
 import PlatformTagComponent from '../tags/PlatformTagComponent'
 import GameStateComponent from '../components/GameStateComponent'
+import FakePlayerTagComponent from '../tags/FakePlayerTagComponent'
 
 export default class GameOverSystem extends System {
   execute() {
@@ -32,7 +33,7 @@ export default class GameOverSystem extends System {
 
 GameOverSystem.queries = {
   players: {
-    components: [PlayerTagComponent, PositionComponent],
+    components: [PlayerTagComponent, PositionComponent, Not(FakePlayerTagComponent)],
   },
 
   platforms: {

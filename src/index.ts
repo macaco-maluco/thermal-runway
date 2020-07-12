@@ -24,6 +24,9 @@ import NewGameSystem from './systems/NewGameSystem'
 import UISystem from './systems/UISystem'
 import PlatformTagComponent from './tags/PlatformTagComponent'
 import GameStateComponent from './components/GameStateComponent'
+import MainMenuSystem from './systems/MainMenuSystem'
+import FakePlayerTagComponent from './tags/FakePlayerTagComponent'
+import GravityComponent from './components/GravityComponent'
 
 const world = new World()
 
@@ -40,10 +43,13 @@ world.registerComponent(PlayerTagComponent)
 world.registerComponent(PlayerViewTagComponent)
 world.registerComponent(ScoreComponent)
 world.registerComponent(PlatformTagComponent)
+world.registerComponent(FakePlayerTagComponent)
+world.registerComponent(GravityComponent)
 world.registerComponent(GameStateComponent)
 
 world.registerSystem(GameOverSystem)
 world.registerSystem(NewGameSystem)
+world.registerSystem(MainMenuSystem)
 world.registerSystem(PlatformCreationSystem)
 world.registerSystem(KeyboardSystem)
 world.registerSystem(GamepadSystem)
@@ -60,6 +66,7 @@ world
   .addComponent(GameStateComponent)
   .addComponent(KeyboardControllerComponent)
   .addComponent(GamepadControllerComponent)
+  .addComponent(GravityComponent)
 
 let lastTime = performance.now()
 

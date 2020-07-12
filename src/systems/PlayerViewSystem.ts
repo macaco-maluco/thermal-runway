@@ -1,11 +1,12 @@
 import * as THREE from 'three'
-import { System } from 'ecsy'
+import { System, Not } from 'ecsy'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
 import PlayerViewTagComponent from '../tags/PlayerViewTagComponent'
 import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
+import FakePlayerTagComponent from '../tags/FakePlayerTagComponent'
 
 export default class PlayerViewSystem extends System {
   playerPosition: PositionComponent
@@ -65,7 +66,13 @@ export default class PlayerViewSystem extends System {
 
 PlayerViewSystem.queries = {
   playerRigidBody: {
-    components: [PlayerTagComponent, PositionComponent, ScaleComponent, AmmoRigidBodyStateComponent],
+    components: [
+      PlayerTagComponent,
+      PositionComponent,
+      ScaleComponent,
+      AmmoRigidBodyStateComponent,
+      Not(FakePlayerTagComponent),
+    ],
     listen: {
       added: true,
       changed: true,
