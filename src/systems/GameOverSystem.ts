@@ -20,7 +20,7 @@ export default class GameOverSystem extends System {
     if (reset) {
       this.queries.gameState.results.forEach((entity) => {
         const state = entity.getMutableComponent(GameStateComponent)
-        state.screen = 'main-menu'
+        state.screen = 'game-over'
       })
 
       for (let i = this.queries.platforms.results.length - 1; i >= 0; i--) {
