@@ -167,7 +167,7 @@ const createSphere = (color: string) => {
   return mesh
 }
 
-function createSurface(worldWidth = 30, worldLength = 1000) {
+function createSurface(worldWidth = 30, worldLength = 20000) {
   const geometry = new THREE.PlaneBufferGeometry(
     worldWidth,
     worldLength,
