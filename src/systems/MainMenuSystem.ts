@@ -19,7 +19,7 @@ export default class MainMenuSystem extends System {
         .createEntity()
         .addComponent(PlayerTagComponent)
         .addComponent(PositionComponent, { y: 2 })
-        .addComponent(RigidBodyComponent, { mass: 1, type: 'sphere' })
+        .addComponent(RigidBodyComponent, { mass: 0.00001, type: 'sphere' })
         .addComponent(VelocityComponent, { z: -20 })
         .addComponent(ScaleComponent, { x: 0.6, y: 0.6, z: 0.6 })
         .addComponent(GravityComponent, { x: 0, y: 0, z: 0 })

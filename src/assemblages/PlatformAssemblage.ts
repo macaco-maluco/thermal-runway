@@ -119,6 +119,7 @@ export const createStartingPlatform = (world: World) => {
     .addComponent(ModelComponent, { type: 'box', color: STARTING_PLATFORM_COLOR })
     .addComponent(ScaleComponent, { y: 0.1, x: 6, z: STARTING_SIZE })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
+    .addComponent(PlatformTagComponent)
 
   return -(STARTING_SIZE + STARTING_PADDING)
 }
