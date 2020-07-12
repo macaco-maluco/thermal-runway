@@ -8,14 +8,6 @@ export default class PlatformCreationSystem extends System {
   startingPosition: number
 
   execute() {
-    this.queries.playerPosition.results.forEach((entity) => {
-      const position = entity.getComponent(PositionComponent)
-
-      if (position.z - 500 < this.nextPosition) {
-        this.nextPosition = createPlatform(this.world, this.nextPosition)
-      }
-    })
-
     this.queries.players.removed.forEach(() => {
       this.nextPosition = this.startingPosition
     })
@@ -23,6 +15,14 @@ export default class PlatformCreationSystem extends System {
     this.queries.players.added.forEach((entity) => {
       this.startingPosition = createStartingPlatform(this.world)
       this.nextPosition = this.startingPosition
+    })
+
+    this.queries.playerPosition.results.forEach((entity) => {
+      const position = entity.getComponent(PositionComponent)
+
+      if (position.z - 500 < this.nextPosition) {
+        this.nextPosition = createPlatform(this.world, this.nextPosition)
+      }
     })
   }
 }
