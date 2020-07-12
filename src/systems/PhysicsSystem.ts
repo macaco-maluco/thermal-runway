@@ -46,10 +46,15 @@ export class PhysicsSystem extends System {
       const position = entity.getComponent(PositionComponent)
       const scale = entity.getComponent(ScaleComponent)
 
+      const rotationQuaternion = new THREE.Quaternion()
+      rotationQuaternion.setFromEuler(new THREE.Euler(position.rotationX, position.rotationY, position.rotationZ))
+
       const transform = new Ammo.btTransform()
       transform.setIdentity()
       transform.setOrigin(new Ammo.btVector3(position.x, position.y, position.z))
-      transform.setRotation(new Ammo.btQuaternion(0, 0, 0, 1))
+      transform.setRotation(
+        new Ammo.btQuaternion(rotationQuaternion.x, rotationQuaternion.y, rotationQuaternion.z, rotationQuaternion.w),
+      )
       const motionState = new Ammo.btDefaultMotionState(transform)
 
       const colShape =

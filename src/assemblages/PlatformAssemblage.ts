@@ -113,7 +113,7 @@ export const createPlatform = (world: World, positionZ: number) => {
 export const createStartingPlatform = (world: World) => {
   world
     .createEntity()
-    .addComponent(PositionComponent, { x: 0, z: -STARTING_SIZE / 2 + 1 })
+    .addComponent(PositionComponent, { x: 0, z: -STARTING_SIZE / 2 + 1, rotationX: 5 * (Math.PI / 180) })
     .addComponent(ModelComponent, { type: 'box', color: 'blue' })
     .addComponent(ScaleComponent, { y: 0.1, x: 2, z: STARTING_SIZE })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
