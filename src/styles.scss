@@ -1,4 +1,4 @@
-$body-font: 'Noto Sans', sans-serif;
+$body-font: 'Roboto', sans-serif;
 
 $pink: rgb(255, 72, 196);
 $blue: rgb(43, 209, 252);
@@ -143,6 +143,12 @@ html {
     position: absolute;
     top: 1rem;
     left: 1rem;
+    font-size: 36px;
+    font-weight: 100;
+    color: rgba(255, 235, 234, 0.5);
+    padding-bottom: 6px;
+    padding-right: 36px;
+    border-bottom: 3px solid rgba(255, 235, 234, 0.5);
   }
 
   &.hide {

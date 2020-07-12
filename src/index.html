@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Thermal Runway</title>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet"/>
-        <link href="./styles.scss" rel="stylesheet"/>
-    </head>
-    <body>
-        <div id="canvas"></div>
-        <div id="ui">
-            <div class="hide" id="main-menu">
-                <img class="keyboard-controls" src="../static/ui/keyboardControls.svg"/>
-                <img class="gamepad-controls" src="../static/ui/gamepadControls.svg"/>
-                <img class="logo" src="../static/ui/logo.svg"/>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Thermal Runway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet" />
+    <link href="./styles.scss" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="canvas"></div>
+    <div id="ui">
+      <div class="hide" id="main-menu">
+        <img class="keyboard-controls" src="../static/ui/keyboardControls.svg" />
+        <img class="gamepad-controls" src="../static/ui/gamepadControls.svg" />
+        <img class="logo" src="../static/ui/logo.svg" />
+      </div>
 
-            <div class="hide" id="game-over">
-                <img class="game-over" src="../static/ui/gameOver.svg"/>
-                <div class="credits">
-                    <div class="author">
-                        <div class="avatar">
-                            <img alt="Marlon avatar" src="../static/ui/marlonAvatar.jpg"/>
-                        </div>
-                        <div class="details">
-                            <p>Marlon Huber-Smith</p>
-                            <a href="http://github.com/marlonicus/" target="_blank">@marlonicus</a>
-                        </div>
-                    </div>
-                    <div class="author">
-                        <div class="avatar">
-                            <img alt="Paulo avatar" src="../static/ui/pauloAvatar.jpg"/>
-                        </div>
-                        <div class="details">
-                            <p>Paulo Ragonha</p>
-                            <a href="http://github.com/pirelenito/" target="_blank">@pirelenito</a>
-                        </div>
-                    </div>
-                </div>
+      <div class="hide" id="game-over">
+        <img class="game-over" src="../static/ui/gameOver.svg" />
+        <div class="credits">
+          <div class="author">
+            <div class="avatar">
+              <img alt="Marlon avatar" src="../static/ui/marlonAvatar.jpg" />
             </div>
-
-            <div class="hide" id="game">
-                <p class="points">Points:
-                    <span class="points-count">0</span>
-                </p>
+            <div class="details">
+              <p>Marlon Huber-Smith</p>
+              <a href="http://github.com/marlonicus/" target="_blank">@marlonicus</a>
             </div>
+          </div>
+          <div class="author">
+            <div class="avatar">
+              <img alt="Paulo avatar" src="../static/ui/pauloAvatar.jpg" />
+            </div>
+            <div class="details">
+              <p>Paulo Ragonha</p>
+              <a href="http://github.com/pirelenito/" target="_blank">@pirelenito</a>
+            </div>
+          </div>
         </div>
-        <script src="./index.ts"></script>
-    </body>
+      </div>
+
+      <div class="hide" id="game">
+        <p class="points">
+          <span class="points-count">0</span>
+          points
+        </p>
+      </div>
+    </div>
+    <script src="./index.ts"></script>
+  </body>
 </html>
