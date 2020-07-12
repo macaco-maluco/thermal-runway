@@ -5,7 +5,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Thermal Runway</title>
     <link href="https://fonts.googleapis.com/css2?family=Kulim+Park:wght@400;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap" rel="stylesheet" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet" />
     <link href="./styles.scss" rel="stylesheet" />
   </head>
   <body>
@@ -18,19 +19,24 @@
         </h1>
 
         <div class="keyboard">
-          <div class="movement"></div>
+          <!-- <div class="movement"></div>
           <div class="jump"></div>
-          <div class="boost"></div>
+          <div class="boost"></div> -->
+          <p>Movement: WASD / D-Pad</p>
+          <p>Jump: SPACE / A</p>
+          <p>Boost: SHIFT / X</p>
         </div>
 
-        <p class="start">
+        <!-- <p class="start">
           Press JUMP to begin!
-        </p>
+        </p> -->
       </div>
 
       <div class="hide" id="game-over">
         <h1 class="title">Game Over!</h1>
       </div>
+
+      <div class="game"></div>
     </div>
     <script src="./index.ts"></script>
   </body>
