@@ -9,7 +9,7 @@ export default class GamepadSystem extends System {
       const controller = entity.getMutableComponent(GamepadControllerComponent)
 
       const gamepad = gamepads[0]
-      if (gamepad === null) return
+      if (!gamepad) return
 
       controller.up = gamepad.buttons[12].pressed
       controller.down = gamepad.buttons[13].pressed
