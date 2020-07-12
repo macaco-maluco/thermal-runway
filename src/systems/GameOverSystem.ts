@@ -10,7 +10,7 @@ export default class GameOverSystem extends System {
     this.queries.players.results.forEach((entity) => {
       const position = entity.getComponent(PositionComponent)
 
-      if (position.y < -10) {
+      if (position.y < -5) {
         reset = true
         entity.remove()
       }

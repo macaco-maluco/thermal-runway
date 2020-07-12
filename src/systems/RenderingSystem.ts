@@ -23,7 +23,7 @@ export default class RenderingSystem extends System {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setClearColor(0xc5c5c3)
+    renderer.setClearColor(0x191f53)
     renderer.shadowMapEnabled = true
 
     document.getElementById('canvas').appendChild(renderer.domElement)
@@ -63,12 +63,7 @@ export default class RenderingSystem extends System {
       this.models = models
     })
 
-    const geometry = new THREE.BoxGeometry(10000, 2, 10000)
-    const material = new THREE.MeshStandardMaterial({ color: '#333' })
-    const mesh = new THREE.Mesh(geometry, material)
-    mesh.position.y = -4
-    mesh.receiveShadow = true
-    scene.add(mesh)
+    scene.add(createSurface())
 
     this.scene = scene
     this.renderer = renderer
@@ -151,6 +146,34 @@ const createSphere = (color: string) => {
   const material = new THREE.MeshStandardMaterial({ color })
   const mesh = new THREE.Mesh(geometry, material)
   mesh.castShadow = true
+  return mesh
+}
+
+function createSurface(worldWidth = 500, worldLength = 1000) {
+  const geometry = new THREE.PlaneBufferGeometry(
+    worldWidth,
+    worldLength,
+    Math.round(worldWidth / 5),
+    Math.round(worldLength / 5),
+  )
+
+  const vertices = geometry.attributes.position.array as number[]
+  for (let i = 0, j = 0, l = vertices.length; i < l; i++, j += 3) {
+    vertices[j + 2] = Math.random() * 2
+  }
+
+  const material = new THREE.MeshPhongMaterial({
+    color: 0x25184e,
+    flatShading: true,
+  })
+
+  const mesh = new THREE.Mesh(geometry, material)
+
+  mesh.rotation.x = -90 * (Math.PI / 180)
+  mesh.position.y = -6
+  mesh.position.z = -worldLength / 2 + 20
+  mesh.receiveShadow = true
+
   return mesh
 }
 
