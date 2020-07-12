@@ -17,6 +17,8 @@ import {
   PLAYER_LIGHT_INTENSITY,
   AMBIENT_LIGHT_INTENSITY,
 } from '../palette'
+import VelocityComponent from '../components/VelocityComponent'
+import { CompressedPixelFormat } from 'three'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -125,9 +127,13 @@ export default class RenderingSystem extends System {
 
     this.queries.cameraTracker.results.forEach((entity) => {
       const position = entity.getComponent(PositionComponent)
-      const { rigidBody } = entity.getComponent(AmmoRigidBodyStateComponent)
+      const velocityComponent = entity.getComponent(VelocityComponent)
+      const rigidBodyComponent = entity.getComponent(AmmoRigidBodyStateComponent)
 
-      const velocity = Math.abs(rigidBody.getLinearVelocity().z())
+      const velocity = rigidBodyComponent
+        ? Math.abs(rigidBodyComponent.rigidBody.getLinearVelocity().z())
+        : velocityComponent.z
+
       const velocityFactor = velocity > 30 ? (velocity - 30) / 20 : 0
 
       this.camera.position.x = 0
@@ -212,6 +218,6 @@ RenderingSystem.queries = {
   },
 
   cameraTracker: {
-    components: [PlayerTagComponent, PositionComponent, AmmoRigidBodyStateComponent],
+    components: [PlayerTagComponent, PositionComponent],
   },
 }
