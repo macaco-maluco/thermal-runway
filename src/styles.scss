@@ -62,6 +62,7 @@ html {
 
 #main-menu {
   @extend .full-screen;
+  background-color: rgba(0, 0, 0, 0.4);
   transition: opacity 400ms ease-out;
   flex-direction: column;
   opacity: 1;
