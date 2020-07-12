@@ -84,7 +84,6 @@ html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // position: absolute;
     left: 5rem;
     transform: scale(0.6);
     transition: transform 150ms ease-out, opacity 150ms ease-out;
@@ -130,6 +129,32 @@ html {
     .keyboard {
       transform: scale(0);
       opacity: 0;
+    }
+  }
+}
+
+#game-over {
+  @extend .full-screen;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 300ms ease-in;
+
+  .title {
+    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms ease-in;
+    font-family: $header-font;
+    color: rgba(20, 2, 24, 1);
+    font-size: 5rem;
+    $shadow-color: rgba(255, 255, 255, 0.9);
+    text-shadow: 3px 3px 0 $shadow-color, -1px -1px 0 $shadow-color, 1px -1px 0 $shadow-color, -1px 1px 0 $shadow-color,
+      1px 1px 0 $shadow-color;
+    opacity: 1;
+  }
+
+  &.hide {
+    background-color: rgba(0, 0, 0, 0);
+
+    .title {
+      opacity: 0;
+      transform: scale(2);
     }
   }
 }
