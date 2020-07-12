@@ -9,10 +9,17 @@ import PlatformTagComponent from '../tags/PlatformTagComponent'
 const levels = [
   {
     platformDepth: [18, 20],
+    platformWidth: [6, 8],
+    platformX: [-2, 2],
+    padding: [2, 2],
+    sturdiness: [0.9, 0.9],
+  },
+  {
+    platformDepth: [18, 20],
     platformWidth: [5, 8],
     platformX: [-2, 2],
     padding: [2, 4],
-    sturdiness: [0.6, 0.9],
+    sturdiness: [0.7, 0.9],
   },
   {
     platformDepth: [14, 18],

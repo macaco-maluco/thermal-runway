@@ -67,7 +67,7 @@ export class PhysicsSystem extends System {
       const ammoRigidBody = new Ammo.btRigidBody(rbInfo)
 
       ammoRigidBody.setActivationState(4)
-      ammoRigidBody.setRestitution(0.5)
+      ammoRigidBody.setRestitution(0.2)
 
       this.physicsWorld.addRigidBody(ammoRigidBody)
 
@@ -122,7 +122,7 @@ export class PhysicsSystem extends System {
       const scale = entity.getComponent(ScaleComponent)
       const position = entity.getMutableComponent(PositionComponent)
       const testFrom = new Ammo.btVector3(position.x, position.y, position.z)
-      const testTo = new Ammo.btVector3(testFrom.x(), testFrom.y() - scale.x, testFrom.z())
+      const testTo = new Ammo.btVector3(testFrom.x(), testFrom.y() - scale.x - 0.2, testFrom.z())
       const res = new Ammo.ClosestRayResultCallback(testFrom, testTo)
       this.physicsWorld.rayTest(testFrom, testTo, res)
       position.grounded = res.hasHit()
