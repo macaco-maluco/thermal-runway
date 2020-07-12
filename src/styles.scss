@@ -92,6 +92,8 @@ html {
   background-color: rgba(0, 0, 0, 0.4);
   transition: opacity 400ms ease-out;
   opacity: 1;
+  display: flex;
+  flex-direction: column;
 
   .credits {
     position: absolute;
@@ -120,6 +122,11 @@ html {
     flex-direction: column;
     justify-content: space-around;
     padding: 4px 10px;
+  }
+
+  .points {
+    font-size: 2rem;
+    margin-top: 2rem;
   }
 
   p,
