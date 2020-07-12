@@ -133,3 +133,19 @@ html {
     opacity: 0;
   }
 }
+
+#game {
+  @extend .full-screen;
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+
+  .points {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  &.hide {
+    opacity: 0;
+  }
+}

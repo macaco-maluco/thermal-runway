@@ -19,6 +19,7 @@ export default class UISystem extends System {
     this.root = document.getElementById('ui') as HTMLDivElement
     this.screens.set('main-menu', document.getElementById('main-menu'))
     this.screens.set('game-over', document.getElementById('game-over'))
+    this.screens.set('game', document.getElementById('game'))
   }
 
   hide(screenId: Screen) {
