@@ -1,6 +1,7 @@
 import { Component, Types } from 'ecsy'
+import { ModelRef } from '../assets'
 
-type ModelType = 'box' | 'sphere' | 'character'
+type ModelType = 'box' | 'sphere' | ModelRef
 
 interface Model {
   color?: string

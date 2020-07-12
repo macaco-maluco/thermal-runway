@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { System, Not } from 'ecsy'
 import PositionComponent from '../components/PositionComponent'
 import ModelComponent from '../components/ModelComponent'
@@ -8,6 +7,7 @@ import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
+import { ModelMap, loadAssets } from '../assets'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -15,7 +15,7 @@ export default class RenderingSystem extends System {
   renderer: THREE.WebGLRenderer
   shadowLight: THREE.DirectionalLight
 
-  character: THREE.Group
+  models: ModelMap
 
   init() {
     const scene = new THREE.Scene()
@@ -59,26 +59,9 @@ export default class RenderingSystem extends System {
     const objLoader = new OBJLoader()
     const mtlLoader = new MTLLoader()
 
-    mtlLoader.load('spaceCraft4.mtl', (characterMaterial) => {
-      objLoader.setMaterials(characterMaterial).load('spaceCraft4.obj', (characterObject) => {
-        characterObject.scale.x = 1
-        characterObject.scale.y = 1
-        characterObject.scale.z = 1
-
-        characterObject.traverse((o) => {
-          o.castShadow = true
-        })
-
-        const group = new THREE.Group()
-        group.add(characterObject)
-
-        this.character = group
-      })
+    loadAssets(objLoader, mtlLoader, (models) => {
+      this.models = models
     })
-
-    // const controls = new OrbitControls(camera, renderer.domElement)
-    // controls.target.set(0, 100, 0)
-    // controls.update()
 
     const geometry = new THREE.BoxGeometry(10000, 2, 10000)
     const material = new THREE.MeshStandardMaterial({ color: '#333' })
@@ -94,7 +77,7 @@ export default class RenderingSystem extends System {
   }
 
   execute(delta, time) {
-    if (!this.character) return
+    if (!this.models) return
 
     this.queries.removed.removed.forEach((entity) => {
       const mesh = entity.getComponent(ThreeMeshStateComponent)
@@ -111,9 +94,9 @@ export default class RenderingSystem extends System {
       const mesh =
         model.type === 'sphere'
           ? createSphere(model.color)
-          : model.type === 'character'
-          ? this.character
-          : createBox(model.color)
+          : model.type === 'box'
+          ? createBox(model.color)
+          : this.models.get(model.type)
 
       mesh.scale.set(scale.x, scale.y, scale.z)
 

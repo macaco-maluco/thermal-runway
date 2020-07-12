@@ -10,14 +10,14 @@ import ScoreComponent from '../components/ScoreComponent'
 
 export const createPlayerBody = (world: World) => {
   // Player physics body
-  world
+  const entity = world
     .createEntity()
     .addComponent(PositionComponent, { y: 2 })
     // .addComponent(ModelComponent, { color: 'red', type: 'sphere' })
     .addComponent(ScaleComponent, { x: 0.6, y: 0.6, z: 0.6 })
     .addComponent(KeyboardControllerComponent)
     .addComponent(GamepadControllerComponent)
-    .addComponent(VelocityComponent, { z: -0.1 })
+    .addComponent(VelocityComponent, { z: -0.001 })
     .addComponent(RigidBodyComponent, { mass: 2, type: 'sphere' })
     .addComponent(PlayerTagComponent)
     .addComponent(ScoreComponent)

@@ -24,7 +24,7 @@ export default class PlayerViewSystem extends System {
         .addComponent(PlayerViewTagComponent)
         .addComponent(PositionComponent)
         .addComponent(ScaleComponent, { x: this.playerViewScale, y: this.playerViewScale, z: this.playerViewScale })
-        .addComponent(ModelComponent, { type: 'character' })
+        .addComponent(ModelComponent, { type: 'ship2' })
     })
 
     this.queries.playerRigidBody.results.forEach((entity) => {
