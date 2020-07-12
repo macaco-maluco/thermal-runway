@@ -1,11 +1,11 @@
 import { Component, Types } from 'ecsy'
 
 interface Velocity {
-  x: number
-  y: number
-  z: number
+  x?: number
+  y?: number
+  z?: number
 
-  rotationY: number
+  rotationY?: number
 }
 
 export default class VelocityComponent extends Component<Velocity> implements Velocity {

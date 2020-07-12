@@ -7,6 +7,7 @@ import ModelComponent from '../components/ModelComponent'
 import { ThreeMeshStateComponent } from '../components/ThreeMeshStateComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -55,21 +56,24 @@ export default class RenderingSystem extends System {
     const ambientLight = new THREE.AmbientLight(0xdc8874, 0.5)
     scene.add(ambientLight)
 
-    const loader = new OBJLoader()
+    const objLoader = new OBJLoader()
+    const mtlLoader = new MTLLoader()
 
-    loader.load('spaceCraft4.obj', (characterObject) => {
-      characterObject.scale.x = 1
-      characterObject.scale.y = 1
-      characterObject.scale.z = 1
+    mtlLoader.load('spaceCraft4.mtl', (characterMaterial) => {
+      objLoader.setMaterials(characterMaterial).load('spaceCraft4.obj', (characterObject) => {
+        characterObject.scale.x = 1
+        characterObject.scale.y = 1
+        characterObject.scale.z = 1
 
-      characterObject.traverse((o) => {
-        o.castShadow = true
+        characterObject.traverse((o) => {
+          o.castShadow = true
+        })
+
+        const group = new THREE.Group()
+        group.add(characterObject)
+
+        this.character = group
       })
-
-      const group = new THREE.Group()
-      group.add(characterObject)
-
-      this.character = group
     })
 
     // const controls = new OrbitControls(camera, renderer.domElement)
