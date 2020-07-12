@@ -59,15 +59,13 @@ html {
   flex-direction: column;
 
   .game-title {
-    // margin-bottom: 35vh;
-    animation: swing 10s infinite ease-in-out;
+    animation: swing 20s infinite ease-in-out;
     font-family: $header-font;
     transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms ease-in;
     transform: scale(1);
     opacity: 1;
     font-size: 7vw;
-    color: $pink;
-
+    color: rgba(20, 2, 24, 1);
     $shadow-color: $yellow;
     text-shadow: 3px 3px 0 $shadow-color, -1px -1px 0 $shadow-color, 1px -1px 0 $shadow-color, -1px 1px 0 $shadow-color,
       1px 1px 0 $shadow-color;
