@@ -7,59 +7,59 @@ import RigidBodyComponent from '../components/RigidBodyComponent'
 import PlatformTagComponent from '../tags/PlatformTagComponent'
 
 const levels = [
+  // {
+  //   platformDepth: [20, 30],
+  //   platformWidth: [6, 8],
+  //   platformX: [-2, 2],
+  //   padding: [4, 4],
+  //   sturdiness: [0.9, 0.9],
+  // },
+  // {
+  //   platformDepth: [20, 30],
+  //   platformWidth: [5, 8],
+  //   platformX: [-2, 2],
+  //   padding: [4, 5],
+  //   sturdiness: [0.7, 0.9],
+  // },
+  // {
+  //   platformDepth: [20, 30],
+  //   platformWidth: [4, 7],
+  //   platformX: [-2, 2],
+  //   padding: [4, 6],
+  //   sturdiness: [0.4, 0.9],
+  // },
+  // {
+  //   platformDepth: [20, 30],
+  //   platformWidth: [4, 7],
+  //   platformX: [-3, 3],
+  //   padding: [4, 6],
+  //   sturdiness: [0.3, 0.9],
+  // },
+  // {
+  //   platformDepth: [20, 30],
+  //   platformWidth: [4, 7],
+  //   platformX: [-3, 3],
+  //   padding: [6, 10],
+  //   sturdiness: [0.9, 0.9],
+  // },
+  // {
+  //   platformDepth: [20, 30],
+  //   platformWidth: [4, 7],
+  //   platformX: [-3, 3],
+  //   padding: [8, 12],
+  //   sturdiness: [0.9, 0.6],
+  // },
   {
-    platformDepth: [18, 20],
-    platformWidth: [6, 8],
-    platformX: [-2, 2],
-    padding: [2, 2],
-    sturdiness: [0.9, 0.9],
-  },
-  {
-    platformDepth: [18, 20],
-    platformWidth: [5, 8],
-    platformX: [-2, 2],
-    padding: [2, 4],
-    sturdiness: [0.7, 0.9],
-  },
-  {
-    platformDepth: [14, 18],
+    platformDepth: [20, 30],
     platformWidth: [4, 7],
-    platformX: [-2, 2],
-    padding: [2, 5],
-    sturdiness: [0.4, 0.9],
-  },
-  {
-    platformDepth: [10, 16],
-    platformWidth: [3, 7],
     platformX: [-3, 3],
-    padding: [2, 6],
-    sturdiness: [0.3, 0.9],
-  },
-  {
-    platformDepth: [8, 14],
-    platformWidth: [2, 7],
-    platformX: [-4, 4],
-    padding: [4, 10],
-    sturdiness: [0.2, 0.9],
-  },
-  {
-    platformDepth: [5, 14],
-    platformWidth: [2, 4],
-    platformX: [-4, 4],
-    padding: [4, 12],
-    sturdiness: [0.2, 0.6],
-  },
-  {
-    platformDepth: [5, 12],
-    platformWidth: [2, 3],
-    platformX: [-5, 5],
-    padding: [15, 20],
-    sturdiness: [0.1, 0.2],
+    padding: [12, 14],
+    sturdiness: [0.6, 0.8],
   },
 ]
 
 const STARTING_SIZE = 40
-const STARTING_PADDING = 20
+const STARTING_PADDING = 26
 
 function getRandom([low, high]: number[]) {
   const delta = high - low
