@@ -1,32 +1,9 @@
 $body-font: 'Roboto', sans-serif;
-
-$pink: rgb(255, 72, 196);
-$blue: rgb(43, 209, 252);
-$yellow: rgb(243, 234, 95);
-$purple: rgb(192, 77, 249);
-$red: rgb(255, 63, 63);
-
 $white: #ffebea;
 
 * {
   margin: 0;
   padding: 0;
-}
-
-@keyframes swing {
-  0%,
-  100% {
-    transform: rotate(-2deg);
-  }
-  10% {
-    transform: scale(0.95);
-  }
-  50% {
-    transform: rotate(2deg);
-  }
-  60% {
-    transform: scale(0.95);
-  }
 }
 
 body,
