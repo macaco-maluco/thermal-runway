@@ -77,7 +77,7 @@ export const createPlatform = (world: World, positionZ: number) => {
   console.log('levelId', levelId)
 
   const stickHeight = 0.01
-  const platformHeight = 1
+  const platformHeight = 2
   const sturdiness = getRandom(currentLevel.sturdiness)
   const x = getRandom(currentLevel.platformX)
   const platformWidth = getRandom(currentLevel.platformWidth)
