@@ -1,4 +1,6 @@
-$header-font: 'Trade Winds', cursive;
+// $header-font: 'Trade Winds', cursive;
+$header-font: 'Bungee', cursive;
+
 $body-font: 'Kulim Park', sans-serif, cursive;
 
 $pink: rgb(255, 72, 196);
@@ -6,6 +8,11 @@ $blue: rgb(43, 209, 252);
 $yellow: rgb(243, 234, 95);
 $purple: rgb(192, 77, 249);
 $red: rgb(255, 63, 63);
+
+* {
+  margin: 0;
+  padding: 0;
+}
 
 @keyframes swing {
   0%,

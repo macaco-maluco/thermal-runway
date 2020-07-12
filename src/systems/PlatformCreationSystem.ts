@@ -7,35 +7,36 @@ export default class PlatformCreationSystem extends System {
   nextPosition: number
   startingPosition: number
 
-  init() {
-    this.startingPosition = createStartingPlatform(this.world)
-    this.nextPosition = this.startingPosition
-  }
-
   execute() {
-    this.queries.players.results.forEach((entity) => {
+    this.queries.players.removed.forEach(() => {
+      this.nextPosition = this.startingPosition
+    })
+
+    this.queries.players.added.forEach((entity) => {
+      this.startingPosition = createStartingPlatform(this.world)
+      this.nextPosition = this.startingPosition
+    })
+
+    this.queries.playerPosition.results.forEach((entity) => {
       const position = entity.getComponent(PositionComponent)
 
       if (position.z - 500 < this.nextPosition) {
         this.nextPosition = createPlatform(this.world, this.nextPosition)
       }
     })
-
-    this.queries.removedPlayers.removed.forEach(() => {
-      this.nextPosition = this.startingPosition
-    })
   }
 }
 
 PlatformCreationSystem.queries = {
-  players: {
+  playerPosition: {
     components: [PlayerTagComponent, PositionComponent],
   },
 
-  removedPlayers: {
+  players: {
     components: [PlayerTagComponent],
     listen: {
       removed: true,
+      added: true,
     },
   },
 }
