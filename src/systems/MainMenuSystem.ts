@@ -37,18 +37,6 @@ export default class MainMenuSystem extends System {
       this.queries.fakeShip.results.forEach((entity) => {
         entity.remove()
       })
-    } else {
-      this.queries.fakeShip.results.forEach((entity) => {
-        const position = entity.getComponent(PositionComponent)
-
-        // if (position.y < 2) {
-        //   const velocity = entity.getMutableComponent(VelocityComponent)
-        //   velocity.y = 0.8
-        // } else {
-        //   const velocity = entity.getMutableComponent(VelocityComponent)
-        //   velocity.y = 0.4
-        // }
-      })
     }
   }
 }
