@@ -5,7 +5,7 @@ import ModelComponent from '../components/ModelComponent'
 import ScaleComponent from '../components/ScaleComponent'
 import RigidBodyComponent from '../components/RigidBodyComponent'
 import PlatformTagComponent from '../tags/PlatformTagComponent'
-import { PLATFORM_COLOR } from '../palette'
+import { PLATFORM_COLOR, STARTING_PLATFORM_COLOR } from '../palette'
 
 const levels = [
   // {
@@ -115,9 +115,9 @@ export const createPlatform = (world: World, positionZ: number) => {
 export const createStartingPlatform = (world: World) => {
   world
     .createEntity()
-    .addComponent(PositionComponent, { x: 0, z: -STARTING_SIZE / 2 + 1, rotationX: 5 * (Math.PI / 180) })
-    .addComponent(ModelComponent, { type: 'box', color: 'blue' })
-    .addComponent(ScaleComponent, { y: 0.1, x: 2, z: STARTING_SIZE })
+    .addComponent(PositionComponent, { x: 0, z: -STARTING_SIZE / 2 + 1, y: 1, rotationX: 0 })
+    .addComponent(ModelComponent, { type: 'box', color: STARTING_PLATFORM_COLOR })
+    .addComponent(ScaleComponent, { y: 0.1, x: 6, z: STARTING_SIZE })
     .addComponent(RigidBodyComponent, { mass: 0, type: 'box' })
 
   return -(STARTING_SIZE + STARTING_PADDING)

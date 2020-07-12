@@ -9,7 +9,14 @@ import PlayerTagComponent from '../tags/PlayerTagComponent'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { ModelMap, loadAssets } from '../assets'
 import { AmmoRigidBodyStateComponent } from '../components/AmmoRigidBodyStateComponent'
-import { SURFACE_COLOR, PLAYER_LIGHT_COLOR, AMBIENT_LIGHT_COLOR, BACKGROUND_COLOR } from '../palette'
+import {
+  SURFACE_COLOR,
+  PLAYER_LIGHT_COLOR,
+  AMBIENT_LIGHT_COLOR,
+  BACKGROUND_COLOR,
+  PLAYER_LIGHT_INTENSITY,
+  AMBIENT_LIGHT_INTENSITY,
+} from '../palette'
 
 export default class RenderingSystem extends System {
   scene: THREE.Scene
@@ -46,7 +53,7 @@ export default class RenderingSystem extends System {
     camera.position.z = 7
     camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-    const shadowLight = new THREE.DirectionalLight(PLAYER_LIGHT_COLOR, 0.9)
+    const shadowLight = new THREE.DirectionalLight(PLAYER_LIGHT_COLOR, PLAYER_LIGHT_INTENSITY)
     // shadowLight.shadowCameraFov = 200
     shadowLight.castShadow = true
     shadowLight.position.set(0, 20, 0)
@@ -55,7 +62,7 @@ export default class RenderingSystem extends System {
     scene.add(shadowLight)
     scene.add(shadowLight.target)
 
-    const ambientLight = new THREE.AmbientLight(AMBIENT_LIGHT_COLOR, 0.5)
+    const ambientLight = new THREE.AmbientLight(AMBIENT_LIGHT_COLOR, AMBIENT_LIGHT_INTENSITY)
     scene.add(ambientLight)
 
     const objLoader = new OBJLoader()
@@ -64,6 +71,8 @@ export default class RenderingSystem extends System {
     loadAssets(objLoader, mtlLoader, (models) => {
       this.models = models
     })
+
+    scene.fog = new THREE.Fog(BACKGROUND_COLOR, 50, 600)
 
     scene.add(createSurface())
 
@@ -133,6 +142,8 @@ export default class RenderingSystem extends System {
       this.shadowLight.target.position.x = position.x
       this.shadowLight.target.position.y = position.y
       this.shadowLight.target.position.z = position.z
+
+      // this.surface.position.z = position.z
     })
 
     this.renderer.render(this.scene, this.camera)
@@ -156,7 +167,7 @@ const createSphere = (color: string) => {
   return mesh
 }
 
-function createSurface(worldWidth = 50, worldLength = 1000) {
+function createSurface(worldWidth = 30, worldLength = 1000) {
   const geometry = new THREE.PlaneBufferGeometry(
     worldWidth,
     worldLength,
