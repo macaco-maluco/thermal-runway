@@ -44,10 +44,11 @@ export default class UISystem extends System {
     this.queries.gameState.changed.forEach((entity) => {
       const state = entity.getComponent(GameStateComponent)
       const controller = entity.getComponent(KeyboardControllerComponent)
+      const gamepad = entity.getComponent(GamepadControllerComponent)
 
       this.setScreen(state.screen)
 
-      if (controller.started && state.screen !== 'game') {
+      if ((controller.started || gamepad.started) && state.screen !== 'game') {
         const mutableState = entity.getMutableComponent(GameStateComponent)
         mutableState.screen = 'game'
       }
