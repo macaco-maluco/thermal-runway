@@ -10,9 +10,7 @@ export class PlayerMovementSystem extends System {
   execute() {
     this.queries.gameState.changed.forEach((entity) => {
       const state = entity.getComponent(GameStateComponent)
-      if (state.screen == 'game') {
-        this.playing = true
-      }
+      this.playing = state.screen == 'game'
     })
 
     this.queries.players.results.forEach((entity) => {

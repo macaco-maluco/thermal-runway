@@ -83,7 +83,7 @@ export class KeyboardSystem extends System {
       controller.jump = this.space
       controller.boost = this.shift
 
-      controller.started = controller.started || controller.jump || controller.boost
+      controller.started = controller.jump || controller.boost
     })
   }
 }

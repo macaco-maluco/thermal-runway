@@ -17,8 +17,7 @@ export default class GamepadSystem extends System {
       controller.right = gamepad.buttons[15].pressed
       controller.jump = gamepad.buttons[0].pressed
       controller.boost = gamepad.buttons[2].pressed
-
-      controller.started = controller.started || controller.jump || controller.boost
+      controller.started = controller.jump || controller.boost
     })
   }
 }

@@ -2,6 +2,7 @@ import { System, Not } from 'ecsy'
 import PlayerTagComponent from '../tags/PlayerTagComponent'
 import PositionComponent from '../components/PositionComponent'
 import PlatformTagComponent from '../tags/PlatformTagComponent'
+import GameStateComponent from '../components/GameStateComponent'
 
 export default class GameOverSystem extends System {
   execute() {
@@ -17,6 +18,11 @@ export default class GameOverSystem extends System {
     })
 
     if (reset) {
+      this.queries.gameState.results.forEach((entity) => {
+        const state = entity.getMutableComponent(GameStateComponent)
+        state.screen = 'main-menu'
+      })
+
       for (let i = this.queries.platforms.results.length - 1; i >= 0; i--) {
         this.queries.platforms.results[i].remove()
       }
@@ -31,5 +37,9 @@ GameOverSystem.queries = {
 
   platforms: {
     components: [PlatformTagComponent],
+  },
+
+  gameState: {
+    components: [GameStateComponent],
   },
 }
