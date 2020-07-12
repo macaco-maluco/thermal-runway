@@ -7,12 +7,29 @@ $yellow: rgb(243, 234, 95);
 $purple: rgb(192, 77, 249);
 $red: rgb(255, 63, 63);
 
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  10% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+}
+
 body,
 html {
   margin: 0;
   overflow: hidden;
   padding: 0;
   font-family: $body-font;
+  color: $yellow;
 }
 
 #canvas,
@@ -38,15 +55,17 @@ html {
 #main-menu {
   @extend .full-screen;
   transition: background-color 150ms ease-out;
-  background-color: rgba(20, 2, 24, 0.6);
+  background-color: rgba(20, 2, 24, 0.8);
+  flex-direction: column;
 
   .game-title {
-    margin-bottom: 5rem;
+    // margin-bottom: 35vh;
+    animation: swing 10s infinite ease-in-out;
     font-family: $header-font;
     transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms ease-in;
     transform: scale(1);
     opacity: 1;
-    font-size: 6rem;
+    font-size: 7vw;
     color: $pink;
 
     $shadow-color: $yellow;
@@ -62,6 +81,42 @@ html {
     }
   }
 
+  .keyboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // position: absolute;
+    left: 5rem;
+    transform: scale(0.6);
+    transition: transform 150ms ease-out, opacity 150ms ease-out;
+    opacity: 0.9;
+
+    .movement {
+      background: url('../static/move-wasd.png');
+      width: 306px;
+      height: 173px;
+    }
+
+    .jump {
+      background: url('../static/jump-space.png');
+      width: 364px;
+      height: 90px;
+    }
+
+    .boost {
+      background: url('../static/boost-shift.png');
+      width: 172px;
+      height: 90px;
+    }
+  }
+
+  .start {
+    font-size: 2rem;
+    opacity: 1;
+    transition: opacity 150ms linear;
+  }
+
   &.hide {
     background-color: rgba(20, 2, 24, 0);
 
@@ -69,33 +124,14 @@ html {
       transform: scale(0.5);
       opacity: 0;
     }
-  }
 
-  .keyboard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 5rem;
-    transform: scale(0.8);
-  }
+    .start {
+      opacity: 0;
+    }
 
-  .movement {
-    background: url('../static/move-wasd.png');
-    width: 306px;
-    height: 173px;
-  }
-
-  .jump {
-    background: url('../static/jump-space.png');
-    width: 364px;
-    height: 90px;
-  }
-
-  .boost {
-    background: url('../static/boost-shift.png');
-    width: 172px;
-    height: 90px;
+    .keyboard {
+      transform: scale(0);
+      opacity: 0;
+    }
   }
 }
