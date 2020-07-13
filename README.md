@@ -7,3 +7,4 @@ Game being developed for [GMTK Game Jam 2020](https://itch.io/jam/gmtk-2020)
 ## Attributions
 
 - Gamepad art created by Valter Bispo from the Noun Project
+- Ship model by [kenney.nl](https://kenney.nl/assets/space-kit)
