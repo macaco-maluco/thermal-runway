@@ -5,12 +5,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build --public-url ./ src/index.html"
+    "build": "parcel build --public-url ./ src/index.html",
+    "pwa": "pwabuilder https://thermalrunway.macacomaluco.space/ -windows10"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.4.3",
     "prettier": "^2.0.5",
+    "pwabuilder": "^2.0.3-rc.1",
     "sass": "^1.26.10",
     "typescript": "^3.9.6"
   },
