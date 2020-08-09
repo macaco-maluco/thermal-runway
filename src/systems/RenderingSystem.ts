@@ -42,11 +42,11 @@ export default class RenderingSystem extends System {
     function handleWindowResize() {
       const height = window.innerHeight
       const width = window.innerWidth
-      const aspect = width / height
+
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
 
       renderer.setSize(width, height)
-
-      camera.updateProjectionMatrix()
     }
 
     window.addEventListener('resize', handleWindowResize, false)
