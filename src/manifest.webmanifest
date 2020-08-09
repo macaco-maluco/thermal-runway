@@ -4,6 +4,7 @@
   "start_url": ".",
   "display": "fullscreen",
   "background_color": "#11373f",
+  "orientation": "landscape",
   "description": "Your ship has lost control and there's a rocky road ahead.",
   "icons": [
     {
