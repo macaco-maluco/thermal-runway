@@ -47,16 +47,19 @@ html {
     position: absolute;
     bottom: 100px;
     right: 40px;
+    width: 22%;
   }
 
   .gamepad-controls {
     position: absolute;
     bottom: 40px;
     left: 40px;
+    width: 25%;
   }
 
   .logo {
     margin-top: -180px;
+    width: 40%;
   }
 
   &.hide {
